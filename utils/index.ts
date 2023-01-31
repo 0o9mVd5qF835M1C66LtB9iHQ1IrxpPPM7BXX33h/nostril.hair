@@ -37,18 +37,18 @@ export const urlify = (text: string) => {
   const urlImageRegex = /(https?:\/\/[^\s]+.(jpg|jpeg|png|gif))/g
 
   return text
-    .replace(/(^|\s)(#[a-z\d-]+)/gi, `$1<span style="color:#1A7DBA">$2</span>`)
+    .replace(/(^|\s)(#[a-z\d-]+)/gi, `$1<span style="color:#1DA1F2">$2</span>`)
     .replace(urlRegex, (url) => {
       if (urlImageRegex.test(url)) {
         return `
           <a href="${url}" target="_blank">
-            <img src="${url}" style="max-width:100%; max-height:250px" />
+            <img src="${url}" style="max-width:100%; max-height:378px; border-radius: 0.5rem;" />
           </a>
         `
       }
 
       return `
-        <a style="color:#1A7DBA" href="${url}" target="_blank">
+        <a style="color:#1DA1F2" href="${url}" target="_blank">
           ${url}
         </a>
       `

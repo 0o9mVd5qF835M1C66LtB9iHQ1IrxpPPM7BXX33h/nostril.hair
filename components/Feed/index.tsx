@@ -15,11 +15,11 @@ export interface NostrEvent {
 
 export default function Feed({ events }) {
   return (
-    <div className="flow-root border-0 border-t border-l border-r dark:border-gray-700 min-h-screen">
+    <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
       <ul>
         {events.map((event) => {
           return (
-            <li key={event.id} className="border-0 border-b dark:border-gray-700 px-4 py-6">
+            <li key={event.id} className="border-0 border-t dark:border-gray-700 px-4 py-6">
               <div className="relative ">
                 {/* {eventIndex !== event.length - 1 ? (
                   <span
