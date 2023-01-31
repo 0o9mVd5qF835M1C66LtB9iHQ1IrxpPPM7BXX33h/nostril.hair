@@ -14,6 +14,5 @@ export default function Page() {
     }
   })
 
-  // @ts-ignore
   return <Feed events={events} />
 }

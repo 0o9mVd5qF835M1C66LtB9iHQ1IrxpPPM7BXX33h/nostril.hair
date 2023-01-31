@@ -1,3 +1,5 @@
+import { nip19 } from 'nostr-tools'
+
 export const shortenID = (ID: string, number = 5) => {
   if (!ID) return ''
   const prefix = ID.slice(0, 4)
@@ -19,6 +21,15 @@ export const relativeTimeUTC = (value: number) => {
   if (hours < 24) return `${hours}h ago`
 
   return value
+}
+
+export const bech32ToHex = (key: string) => {
+  try {
+    const { data } = nip19.decode(key)
+    return data
+  } catch (error) {
+    return ''
+  }
 }
 
 export const urlify = (text: string) => {

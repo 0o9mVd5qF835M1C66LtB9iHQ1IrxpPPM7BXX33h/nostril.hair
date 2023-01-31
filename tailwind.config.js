@@ -19,9 +19,10 @@ module.exports = {
         cultured: '#F9FAFB',
         quicksilver: '#A8A29E',
         carolinablue: '#1DA1F2',
-        starcommandblue: '#1A7DBA',
+        tallships: '#0B7BC1',
         lapislazuli: '#175982',
-        richblack: '#111111'
+        richblack: '#111111',
+        nero: '#222222'
       }
     }
   },

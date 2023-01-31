@@ -1836,7 +1836,7 @@ nostr-react@^0.6.3:
     jotai "^1.12.1"
     nostr-tools "^1.1.0"
 
-nostr-tools@^1.1.0:
+nostr-tools@^1.1.0, nostr-tools@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/nostr-tools/-/nostr-tools-1.2.1.tgz#0871572254679744539846602ef2cd2f204d82c4"
   integrity sha512-SL0sst29mrQ7oUPGQn+NMH4yuTe69a8S4bliNpYB2IG0fDl3Cx+xSLnuCTb4nZiNalatYsA5l+751wQiDGA3+A==

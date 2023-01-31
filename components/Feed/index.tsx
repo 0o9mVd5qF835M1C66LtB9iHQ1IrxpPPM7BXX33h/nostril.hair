@@ -1,7 +1,9 @@
-import { relativeTimeUTC, shortenID, urlify } from '../../utils'
-import Avatar from '../Avatar'
+/* eslint-disable react/no-danger */
+import { urlify } from '../../utils'
+import Avatar from '../Post/Avatar'
+import Username from '../Post/Username'
 
-interface NostrEvent extends Event {
+export interface NostrEvent {
   content: string
   created_at: number
   id: string
@@ -11,18 +13,14 @@ interface NostrEvent extends Event {
   tags: string[]
 }
 
-interface Props {
-  events: NostrEvent[]
-}
-
-export default function Feed({ events }: Props) {
+export default function Feed({ events }) {
   return (
-    <div className="flow-root mb-16">
-      <ul className="-mb-8">
+    <div className="flow-root border-0 border-t border-l border-r dark:border-gray-700 min-h-screen">
+      <ul>
         {events.map((event) => {
           return (
-            <li key={event.id} className="my-3">
-              <div className="relative pb-8">
+            <li key={event.id} className="border-0 border-b dark:border-gray-700 px-4 py-6">
+              <div className="relative ">
                 {/* {eventIndex !== event.length - 1 ? (
                   <span
                     className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
@@ -33,23 +31,13 @@ export default function Feed({ events }: Props) {
                   <Avatar pubkey={event.pubkey} />
                   <div className="min-w-0 flex-1">
                     <div>
-                      <div className="text-sm">
-                        <a href={event.pubkey} className="font-medium text-gray-900">
-                          {shortenID(event.pubkey)}
-                        </a>
-                      </div>
-                      {/* <p className="mt-0.5 text-sm text-gray-500">
-                        {dayjs(dayjs().valueOf() - event.created_at).format(
-                          'HH:mm:ss | ddd, MMM D, YYYY'
-                        )}
-                      </p> */}
-                      <p className="mt-0.5 text-sm text-gray-500">
-                        {relativeTimeUTC(event.created_at)}
-                      </p>
+                      <Username pubkey={event.pubkey} createdAt={event.created_at} />
                     </div>
-                    <div className="mt-2 text-sm text-gray-700">
-                      {/* eslint-disable-next-line react/no-danger */}
-                      <p dangerouslySetInnerHTML={{ __html: urlify(event.content) }} />
+                    <div className="mt-2 text-sm text-richblack dark:text-cultured font-light">
+                      <p
+                        className="break-all"
+                        dangerouslySetInnerHTML={{ __html: urlify(event.content) }}
+                      />
                     </div>
                   </div>
                 </div>
