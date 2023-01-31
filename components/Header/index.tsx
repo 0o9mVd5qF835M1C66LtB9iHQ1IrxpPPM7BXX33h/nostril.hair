@@ -1,4 +1,5 @@
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { BsMoon, BsSun } from 'react-icons/bs'
@@ -24,7 +25,18 @@ export default function Header() {
                       : 'font-normal text-stone-700 dark:text-quicksilver'
                   }`}
                 >
-                  <Link href={link.href}>{link.name}</Link>
+                  <Link href={link.href} className="inline-flex items-center space-x-3">
+                    <div className="">
+                      <Image
+                        src="/logo/nostril.svg"
+                        height={36}
+                        width={36}
+                        alt="logo"
+                        className=""
+                      />
+                    </div>
+                    <span>{link.name}</span>
+                  </Link>
                 </h1>
               ))}
             </div>
@@ -48,7 +60,12 @@ export default function Header() {
                     : 'font-normal text-stone-700 dark:text-quicksilver'
                 }`}
               >
-                <Link href={link.href}>{link.name}</Link>
+                <Link href={link.href} className="inline-flex items-center space-x-3">
+                  <div className="">
+                    <Image src="/logo/nostril.svg" height={36} width={36} alt="logo" className="" />
+                  </div>
+                  <span>{link.name}</span>
+                </Link>
               </h1>
             ))}
           </div>
