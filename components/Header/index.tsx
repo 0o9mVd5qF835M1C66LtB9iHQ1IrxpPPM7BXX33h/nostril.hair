@@ -1,10 +1,12 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsArrowLeftRight, BsMoon, BsSun } from 'react-icons/bs'
+import { BsArrowLeftRight, BsFillPersonFill, BsMoonFill, BsSunFill } from 'react-icons/bs'
+import { useAppContext } from '../../context/AppContext'
 
 export default function Header() {
   const { resolvedTheme, setTheme } = useTheme()
+  const { privkey } = useAppContext()
 
   return (
     <header className="sticky top-0 inset-x-0 dark:bg-dark bg-cultured flex flex-col">
@@ -19,11 +21,21 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl mt-3"
+              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-xl mt-3"
             >
-              {resolvedTheme === 'light' ? <BsSun /> : <BsMoon />}
+              {resolvedTheme === 'light' ? <BsSunFill className="text-2xl" /> : <BsMoonFill />}
             </button>
           </div>
+          {!!privkey && (
+            <div className="flex justify-center">
+              <Link
+                href="/profile"
+                className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+              >
+                <BsFillPersonFill />
+              </Link>
+            </div>
+          )}
           <div className="flex justify-center">
             <Link
               href="/auth"
