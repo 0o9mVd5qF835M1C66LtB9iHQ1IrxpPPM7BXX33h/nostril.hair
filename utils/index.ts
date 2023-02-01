@@ -65,51 +65,63 @@ export const hexToBech32 = (key: string, prefix: string) => {
   }
 }
 
-export const mapEvent = (text: string, tags: any) => {
+export const mapEvent = (text: string, tags: any[]) => {
   const events = {
     profiles: [],
-    replyEvents: [],
-    mentionEvents: []
+    replies: [],
+    mentions: []
   }
   // eslint-disable-next-line no-param-reassign
   text = String(text).trim()
   if (text === '') {
     return {
       text,
-      replyEvents: [],
-      mentionEvents: tags.filter(([t, v]) => t === 'e' && v).map(([_, v]) => v)
+      replies: [],
+      mentions: tags.filter(([key, value]) => key === 'e' && value).map(([_, value]) => value)
     }
   }
-  const rootIdx = tags.findIndex(([t, v, _, marker]) => t === 'e' && v && marker === 'root')
-  if (rootIdx >= 0) {
-    const [_, v] = tags[rootIdx]
-    if (!events.mentionEvents.includes(v) && events.replyEvents.length < 2)
-      events.replyEvents.push(v)
-    const replyIdx = tags.find(([t, v, _, marker]) => t === 'e' && v && marker === 'reply')
-    if (replyIdx >= 0) {
-      const [_, v] = tags[replyIdx]
-      if (!events.mentionEvents.includes(v) && events.replyEvents.length < 2)
-        events.replyEvents.push(v)
+  const rootIndex = tags.findIndex(
+    ([key, value, _, marker]) => key === 'e' && value && marker === 'root'
+  )
+
+  if (rootIndex >= 0) {
+    const [_, value] = tags[rootIndex]
+
+    if (!events.mentions.includes(value) && events.replies.length < 2) {
+      events.replies.push(value)
+    }
+
+    const replyIndex = tags.find(
+      ([key, value, _, marker]) => key === 'e' && value && marker === 'reply'
+    )
+
+    if (replyIndex >= 0) {
+      const [_, value] = tags[replyIndex]
+      if (!events.mentions.includes(value) && events.replies.length < 2) events.replies.push(value)
     }
   }
+
   tags
-    .filter(([t, v, _, marker]) => t === 'e' && v && marker === 'mention')
-    .forEach(([t, v], index) => {
-      if (!events.mentionEvents.includes(v)) events.mentionEvents.push(v)
+    .filter(([key, value, _, marker]) => key === 'e' && value && marker === 'mention')
+    .forEach(([_, value]) => {
+      if (!events.mentions.includes(value)) {
+        events.mentions.push(value)
+      }
     })
+
   tags
-    .filter(([t, v]) => t === 'e' && v)
-    .forEach(([t, v], index) => {
-      if (!events.mentionEvents.includes(v) && !events.replyEvents.includes(v)) {
+    .filter(([key, value]) => key === 'e' && value)
+    .forEach(([_, value]) => {
+      if (!events.mentions.includes(value) && !events.replies.includes(value)) {
         // if (index < 2) mentions.replyEvents.push(v)
-        if (events.replyEvents.length < 2) events.replyEvents.push(v)
-        else events.mentionEvents.push(v)
+        if (events.replies.length < 2) events.replies.push(value)
+        else events.mentions.push(value)
       }
     })
 
   return {
     text: sanitize(text),
-    replies: events.replyEvents,
-    mentions: events.mentionEvents
+    replies: events.replies,
+    mentions: events.mentions
   }
 }
