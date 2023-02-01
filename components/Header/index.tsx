@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsMoon, BsSun } from 'react-icons/bs'
+import { BsArrowLeftRight, BsMoon, BsSun } from 'react-icons/bs'
 
 export default function Header() {
   const { resolvedTheme, setTheme } = useTheme()
@@ -19,10 +19,18 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl mt-3"
             >
               {resolvedTheme === 'light' ? <BsSun /> : <BsMoon />}
             </button>
+          </div>
+          <div className="flex justify-center">
+            <Link
+              href="/auth"
+              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+            >
+              <BsArrowLeftRight />
+            </Link>
           </div>
         </div>
       </nav>

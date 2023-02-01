@@ -27,18 +27,16 @@ export default function Username({ pubkey, createdAt }: Props) {
   return (
     <div className="text-sm">
       <Link href={pubkey}>
-        <span className="hover:underline decoration-cultured font-semibold text-richblack dark:text-cultured text-[16px]">
+        <span className="hover:underline decoration-cultured font-medium text-richblack dark:text-cultured text-[15px]">
           {username}
         </span>
-        {data?.nip05 && (
-          <div className="inline-flex items-center align-middle">
-            <BsFillPatchCheckFill className="text-carolinablue text-md ml-1 mr-1" />
-            <span className="text-xs text-gray-700 dark:text-gray-400 font-light">
-              {data.nip05}
-            </span>
-          </div>
-        )}
       </Link>
+      {data?.nip05 && (
+        <div className="inline-flex items-center align-middle">
+          <BsFillPatchCheckFill className="text-carolinablue text-md ml-1 mr-1" />
+          <span className="text-xs text-gray-700 dark:text-gray-400 font-normal">{data.nip05}</span>
+        </div>
+      )}
       <p className="mt-0.5 inline-flex text-xs font-normal text-gray-700 dark:text-gray-400">
         &nbsp;· {relativeTimeUTC(createdAt)}
       </p>

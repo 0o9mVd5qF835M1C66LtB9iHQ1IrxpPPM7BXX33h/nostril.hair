@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 'use client'
 
 import { useNostrEvents } from 'nostr-react'

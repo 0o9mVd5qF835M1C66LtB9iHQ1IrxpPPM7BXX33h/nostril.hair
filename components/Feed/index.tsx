@@ -1,5 +1,4 @@
-/* eslint-disable react/no-danger */
-import { urlify } from '../../utils'
+import ParsedText from '../ParsedText'
 import Avatar from '../Post/Avatar'
 import Username from '../Post/Username'
 
@@ -33,11 +32,10 @@ export default function Feed({ events }) {
                     <div>
                       <Username pubkey={event.pubkey} createdAt={event.created_at} />
                     </div>
-                    <div className="mt-2 text-sm text-richblack dark:text-cultured font-light">
-                      <p
-                        className="break-all"
-                        dangerouslySetInnerHTML={{ __html: urlify(event.content) }}
-                      />
+                    <div className="mt-2 text-sm text-richblack dark:text-cultured font-normal">
+                      <p className="break-all">
+                        <ParsedText content={event.content} />
+                      </p>
                     </div>
                   </div>
                 </div>

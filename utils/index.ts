@@ -32,25 +32,19 @@ export const bech32ToHex = (key: string) => {
   }
 }
 
-export const urlify = (text: string) => {
-  const urlRegex = /(https?:\/\/[^\s]+)/g
-  const urlImageRegex = /(https?:\/\/[^\s]+.(jpg|jpeg|png|gif))/g
-
-  return text
-    .replace(/(^|\s)(#[a-z\d-]+)/gi, `$1<span style="color:#1DA1F2">$2</span>`)
-    .replace(urlRegex, (url) => {
-      if (urlImageRegex.test(url)) {
-        return `
-          <a href="${url}" target="_blank">
-            <img src="${url}" style="max-width:100%; max-height:378px; border-radius: 0.5rem;" />
-          </a>
-        `
-      }
-
-      return `
-        <a style="color:#1DA1F2" href="${url}" target="_blank">
-          ${url}
-        </a>
-      `
-    })
+export const hexToBech32 = (key: string, prefix: string) => {
+  try {
+    switch (prefix) {
+      case 'npub':
+        return nip19.npubEncode(key)
+      case 'nsec':
+        return nip19.nsecEncode(key)
+      case 'note':
+        return nip19.noteEncode(key)
+      default:
+        return ''
+    }
+  } catch (error) {
+    return ''
+  }
 }
