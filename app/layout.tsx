@@ -12,7 +12,19 @@ const inter = Inter({
   display: 'optional'
 })
 
-const relayUrls = ['wss://nostr-pub.wellorder.net', 'wss://relay.nostr.ch']
+const relayUrls = [
+  'wss://nostr-pub.wellorder.net',
+  'wss://relay.nostr.ch',
+  'wss://nostr.onsats.org',
+  'wss://nostr-relay.wlvs.space',
+  'wss://nostr.bitcoiner.social',
+  'wss://relay.damus.io',
+  'wss://nostr-relay.alexbosworth.com',
+  'wss://nostr.zebedee.cloud',
+  'wss://relay.nostr.info',
+  'wss://nostr-pub.semisol.dev',
+  'wss://nostr.walletofsatoshi.com'
+]
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

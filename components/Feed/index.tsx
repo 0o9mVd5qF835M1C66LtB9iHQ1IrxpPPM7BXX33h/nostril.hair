@@ -35,9 +35,9 @@ export default function Feed({ events }) {
                         <Username pubkey={event.pubkey} createdAt={event.created_at} />
                       </div>
                       <div className="mt-2 text-sm text-richblack dark:text-cultured font-normal">
-                        <p className="break-words">
+                        <div className="break-words">
                           <ParsedText content={event.content} />
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>

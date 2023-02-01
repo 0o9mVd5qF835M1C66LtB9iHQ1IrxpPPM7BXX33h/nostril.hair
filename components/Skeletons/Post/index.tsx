@@ -1,8 +1,12 @@
 export default function PostSkeleton({ count = 1 }) {
   return (
     <>
-      {Array.from(Array(count)).map((iterator) => (
-        <li key={iterator} className="border-0 border-t dark:border-gray-700 px-4 py-6">
+      {Array.from(Array(count)).map(() => (
+        <li
+          // eslint-disable-next-line react/no-array-index-key
+          key={Math.random()}
+          className="border-0 border-t dark:border-gray-700 px-4 py-6"
+        >
           <div className="animate-pulse flex space-x-4">
             <div className="rounded-full bg-richblack dark:bg-cultured h-12 w-12" />
             <div className="flex-1 space-y-6">

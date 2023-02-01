@@ -1,12 +1,12 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsArrowLeftRight, BsFillPersonFill, BsMoonFill, BsSunFill } from 'react-icons/bs'
+import { FiLogIn, FiLogOut, FiMoon, FiSettings, FiSun, FiUser } from 'react-icons/fi'
 import { useAppContext } from '../../context/AppContext'
 
 export default function Header() {
   const { resolvedTheme, setTheme } = useTheme()
-  const { privkey } = useAppContext()
+  const { privkey, setPrivkey } = useAppContext()
 
   return (
     <header className="sticky top-0 inset-x-0 dark:bg-dark bg-cultured flex flex-col">
@@ -21,29 +21,43 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-xl mt-3"
+              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl mt-3"
             >
-              {resolvedTheme === 'light' ? <BsSunFill className="text-2xl" /> : <BsMoonFill />}
+              {resolvedTheme === 'light' ? <FiSun /> : <FiMoon />}
             </button>
           </div>
           {!!privkey && (
             <div className="flex justify-center">
               <Link
-                href="/profile"
+                href="/settings"
                 className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
               >
-                <BsFillPersonFill />
+                <FiSettings />
               </Link>
             </div>
           )}
-          <div className="flex justify-center">
-            <Link
-              href="/auth"
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
-            >
-              <BsArrowLeftRight />
-            </Link>
-          </div>
+          {!privkey ? (
+            <div className="flex justify-center">
+              <Link
+                href="/auth"
+                className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+              >
+                <FiLogIn />
+              </Link>
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <Link href="/auth">
+                <button
+                  type="button"
+                  className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+                  onClick={() => setPrivkey('')}
+                >
+                  <FiLogOut />
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
     </header>

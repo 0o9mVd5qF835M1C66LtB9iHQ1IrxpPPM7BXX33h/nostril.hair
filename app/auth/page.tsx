@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useState } from 'react'
 import InfoButton from '../../components/Button/Info'
 import UnstyledButton from '../../components/Button/Unstyled'
@@ -10,24 +10,10 @@ import { bech32ToHex } from '../../utils'
 export default function Page() {
   const [value, setValue] = useState('')
   const { setPrivkey } = useAppContext()
-  const { push } = useRouter()
-
-  const signIn = () => {
-    try {
-      const hex = bech32ToHex(value)
-
-      if (hex) {
-        setPrivkey(hex as string)
-        push('/')
-      }
-    } catch (e) {
-      setPrivkey('')
-    }
-  }
 
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
-      <div className="flex min-h-full items-center justify-center py-12">
+      <div className="flex min-h-full items-center justify-center py-9 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
             <h3 className="text-lg font-medium leading-6 text-richblack dark:text-cultured">
@@ -59,7 +45,13 @@ export default function Page() {
                 </div>
                 <div className="mt-3">
                   <div className="flex justify-end">
-                    <InfoButton text="Sign in" onClick={signIn} />
+                    <Link href="/">
+                      <InfoButton
+                        text="Sign in"
+                        onClick={() => setPrivkey(bech32ToHex(value) as string)}
+                        disabled={!value.startsWith('nsec') || !bech32ToHex(value)}
+                      />
+                    </Link>
                   </div>
                 </div>
               </div>
