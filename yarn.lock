@@ -1828,10 +1828,10 @@ normalize-range@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
 
-nostr-react@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/nostr-react/-/nostr-react-0.6.3.tgz#0b73edb8c98f84d026cc94d3b650530403d00355"
-  integrity sha512-MJ84tcm7gSQKWjhlM4zVvZUddkUsnmenXcqoQGvfzBLqkRB/9/QJo3StQK4l5MlKYXZ2SZZtlP2iuS5cP9nWwg==
+nostr-react@^0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/nostr-react/-/nostr-react-0.6.4.tgz#03c15f6ac4807efdb3ad3c181457353bedf30d28"
+  integrity sha512-esRgmhTP5kPQ8ufs8cFAQxxJtMmzuba/k2QfXevG/ejHP3IMa41pb82qi8V0aPzY3KJ0Nr54x0OSa39d2InKzA==
   dependencies:
     jotai "^1.12.1"
     nostr-tools "^1.1.0"
