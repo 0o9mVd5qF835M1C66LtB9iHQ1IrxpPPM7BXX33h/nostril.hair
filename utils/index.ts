@@ -26,14 +26,14 @@ export const relativeTimeUTC = (value: number) => {
 
   return dayjs(value * 1000)
     .fromNow()
-    .replace('day', 'd')
     .replace('days', 'd')
-    .replace('week', 'w')
+    .replace('day', 'd')
     .replace('weeks', 'w')
-    .replace('month', 'm')
-    .replace('months', 'm')
-    .replace('year', 'y')
+    .replace('week', 'w')
+    .replace('months', 'mo')
+    .replace('month', 'mo')
     .replace('years', 'y')
+    .replace('year', 'y')
 }
 
 export const bech32ToHex = (key: string) => {
