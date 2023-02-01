@@ -16,13 +16,13 @@ export const relativeTimeUTC = (value: number) => {
   const now = Math.floor(dayjs().valueOf() / 1000)
 
   const seconds = now - value
-  if (seconds < 60) return `${seconds <= 0 ? 1 : seconds}s ago`
+  if (seconds < 60) return `${seconds <= 0 ? 1 : seconds} seconds ago`
 
   const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes}m ago`
+  if (minutes < 60) return `${minutes}minutes ago`
 
   const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours}h ago`
+  if (hours < 24) return `${hours}hours ago`
 
   return dayjs(value * 1000).fromNow()
 }
