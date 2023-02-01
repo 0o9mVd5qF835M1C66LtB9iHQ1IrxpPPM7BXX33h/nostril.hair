@@ -2,8 +2,10 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import InfoButton from '../../components/Button/Info'
+import UnstyledButton from '../../components/Button/Unstyled'
 import { useAppContext } from '../../context/AppContext'
-import { bech32ToHex, shortenID } from '../../utils'
+import { bech32ToHex } from '../../utils'
 
 export default function Page() {
   const [value, setValue] = useState('')
@@ -13,8 +15,11 @@ export default function Page() {
   const signIn = () => {
     try {
       const hex = bech32ToHex(value)
-      setPrivkey(hex as string)
-      push('/')
+
+      if (hex) {
+        setPrivkey(hex as string)
+        push('/')
+      }
     } catch (e) {
       setPrivkey('')
     }
@@ -22,7 +27,7 @@ export default function Page() {
 
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex min-h-full items-center justify-center py-12">
         <div className="w-full max-w-md space-y-8">
           <div>
             <h3 className="text-lg font-medium leading-6 text-richblack dark:text-cultured">
@@ -47,36 +52,21 @@ export default function Page() {
                       name="privkey"
                       id="privkey"
                       value={value}
-                      className="rounded-lg sm:text-sm block w-full text-richblack dark:text-slate-200 focus:ring-px bg-white border border-gray-200 dark:border-gray-900 focus:ring-carolinablue focus:border-carolinablue dark:focus:ring-tallships dark:focus:border-tallships dark:bg-nero dark:placeholder-cultured"
-                      placeholder={shortenID(
-                        'nsec1eabms7jcdacjk3g3cexuhg2yx8zze9c4j2ma4e6c4g55dcsrckqq8siqhp'
-                      )}
+                      className="rounded-lg sm:text-sm block w-full text-richblack dark:text-slate-200 focus:ring-px bg-white border border-gray-200 dark:border-gray-900 focus:ring-carolinablue focus:border-carolinablue dark:focus:ring-tallships dark:focus:border-tallships dark:bg-nero"
                       onChange={(e) => setValue(e.target.value)}
                     />
                   </div>
                 </div>
                 <div className="mt-3">
                   <div className="flex justify-end">
-                    <button
-                      type="button"
-                      className="space-x-2 rounded-lg border border-gray-200 dark:border-gray-900 bg-cultured dark:bg-nero px-4 py-2 text-sm font-medium dark:text-cultured text-richblack hover:bg-gray-100 dark:hover:opacity-90"
-                      onClick={signIn}
-                    >
-                      Sign in
-                    </button>
+                    <InfoButton text="Sign in" onClick={signIn} />
                   </div>
                 </div>
               </div>
             </div>
             <div className="my-3">
               <hr className="dark:border-gray-700 dark:opacity-30 my-6" />
-              <button
-                type="button"
-                className="inline-flex items-center space-x-2 rounded-lg border border-gray-200 dark:border-gray-900 bg-cultured dark:bg-nero px-4 py-2 text-sm font-medium dark:text-cultured text-richblack hover:bg-gray-100 dark:hover:opacity-90"
-                onClick={console.log}
-              >
-                <div className="text-sm font-medium">Create account</div>
-              </button>
+              <UnstyledButton text="Create account" onClick={console.log} />
             </div>
           </div>
         </div>

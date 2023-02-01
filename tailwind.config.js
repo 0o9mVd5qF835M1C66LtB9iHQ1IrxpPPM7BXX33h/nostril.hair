@@ -18,6 +18,8 @@ module.exports = {
       colors: {
         cultured: '#F9FAFB',
         quicksilver: '#A8A29E',
+        fordarkgreen: '#38C08F',
+        forlightgreen: '#008A5D',
         carolinablue: '#1DA1F2',
         tallships: '#0B7BC1',
         lapislazuli: '#175982',

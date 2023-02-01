@@ -34,12 +34,12 @@ export default function Username({ pubkey, createdAt }: Props) {
       {data?.nip05 && (
         <div className="inline-flex items-baseline align-middle">
           <BsFillPatchCheckFill className="text-carolinablue text-md ml-1 mr-1" />
-          <span className="text-xs text-gray-700 dark:text-gray-400 font-normal self-center">
+          <span className="text-sm text-gray-700 dark:text-gray-400 font-normal self-center">
             {data.nip05}
           </span>
         </div>
       )}
-      <p className="mt-0.5 inline-flex text-xs font-normal text-gray-700 dark:text-gray-400 self-center">
+      <p className="mt-0.5 inline-flex text-sm font-normal text-gray-700 dark:text-gray-400 self-center">
         &nbsp;· {relativeTimeUTC(createdAt)}
       </p>
       <p className="mt-0.5 text-xs font-normal text-gray-700 dark:text-gray-400 self-center">

@@ -3,6 +3,7 @@
 import { useProfile } from 'nostr-react'
 import { getPublicKey } from 'nostr-tools'
 import { useState } from 'react'
+import SaveButton from '../../components/Button/Save'
 import { useAppContext } from '../../context/AppContext'
 import { hexToBech32 } from '../../utils'
 
@@ -38,8 +39,10 @@ export default function Page() {
             <div className="space-y-8 divide-y divide-gray-200">
               <div>
                 <div>
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Profile</h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <h3 className="text-lg font-medium leading-6 text-richblack dark:text-cultured">
+                    Profile
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-700 dark:text-gray-400">
                     Manage your public profile on the Nostr network.
                   </p>
                 </div>
@@ -47,7 +50,10 @@ export default function Page() {
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                   <div className="sm:col-span-4">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="username"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       Username
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -67,7 +73,7 @@ export default function Page() {
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label
                       htmlFor="displayName"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
                     >
                       Display Name
                     </label>
@@ -86,7 +92,10 @@ export default function Page() {
 
                   <div className="sm:col-span-4">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="website" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="website"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       Website
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -104,7 +113,10 @@ export default function Page() {
 
                   <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="about"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       About
                     </label>
                     <div className="mt-1">
@@ -122,7 +134,10 @@ export default function Page() {
 
                   <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="photo"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       Profile Picture
                     </label>
                     <div className="mt-1">
@@ -141,7 +156,10 @@ export default function Page() {
 
                   <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="banner" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="banner"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       Profile Banner
                     </label>
                     <div className="mt-1">
@@ -160,7 +178,10 @@ export default function Page() {
 
                   <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="nip05" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="nip05"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       NIP-05 Identifier
                     </label>
                     <div className="mt-1">
@@ -181,13 +202,20 @@ export default function Page() {
 
               <div className="pt-8">
                 <div>
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Keys</h3>
-                  <p className="mt-1 text-sm text-gray-500">Manage your public and private keys.</p>
+                  <h3 className="text-lg font-medium leading-6 text-richblack dark:text-cultured">
+                    Keys
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                    Manage your public and private keys.
+                  </p>
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                   <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="npub" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="npub"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       Public Key
                     </label>
                     <div className="mt-1">
@@ -206,7 +234,10 @@ export default function Page() {
 
                   <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor="npub" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="npub"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
                       Private Key
                     </label>
                     <div className="mt-1">
@@ -241,25 +272,14 @@ export default function Page() {
 
             <div className="pt-5">
               <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Save
-                </button>
+                <SaveButton text="Save" onClick={console.log} />
               </div>
             </div>
           </form>
 
           <button
             type="button"
-            className="relative -ml-px inline-flex items-center space-x-2 rounded-lg border border-gray-200 dark:border-gray-900 bg-cultured dark:bg-nero px-4 py-2 text-sm font-medium dark:text-cultured text-richblack hover:bg-gray-100 dark:hover:opacity-90"
+            className="relative inline-flex items-center space-x-2 rounded-lg border border-gray-200 dark:border-gray-900 bg-cultured dark:bg-nero px-4 py-2 text-sm font-medium dark:text-cultured text-richblack hover:bg-gray-100 dark:hover:opacity-90"
             onClick={signOut}
           >
             <div className="text-sm font-medium">Sign out</div>
