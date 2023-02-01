@@ -1,5 +1,8 @@
 import dayjs from 'dayjs'
 import { nip19 } from 'nostr-tools'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime)
 
 export const shortenID = (ID: string, number = 5) => {
   if (!ID) return ''
@@ -21,7 +24,7 @@ export const relativeTimeUTC = (value: number) => {
   const hours = Math.floor(minutes / 60)
   if (hours < 24) return `${hours}h ago`
 
-  return value
+  return dayjs(value * 1000).fromNow()
 }
 
 export const bech32ToHex = (key: string) => {
