@@ -7,7 +7,7 @@ import { useAppContext } from '../../context/AppContext'
 import { hexToBech32 } from '../../utils'
 
 export default function Page() {
-  const [setValue] = useState('')
+  const [_, setValue] = useState('')
   const { privkey, setPrivkey } = useAppContext()
 
   const { data } = useProfile({ pubkey: privkey ? getPublicKey(privkey as string) : '' })
