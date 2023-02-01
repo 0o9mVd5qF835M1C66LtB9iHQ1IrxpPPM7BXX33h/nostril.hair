@@ -24,16 +24,20 @@ export const relativeTimeUTC = (value: number) => {
   const hours = Math.floor(minutes / 60)
   if (hours < 24) return `${hours}h ago`
 
-  return dayjs(value * 1000)
+  const ago = dayjs(value * 1000)
     .fromNow()
-    .replace('days', 'd')
-    .replace('day', 'd')
-    .replace('weeks', 'w')
-    .replace('week', 'w')
-    .replace('months', 'mo')
-    .replace('month', 'mo')
-    .replace('years', 'y')
-    .replace('year', 'y')
+    .replace(' days', 'd')
+    .replace(' day', 'd')
+    .replace(' weeks', 'w')
+    .replace(' week', 'w')
+    .replace(' months', 'mo')
+    .replace(' month', 'mo')
+    .replace(' years', 'y')
+    .replace(' year', 'y')
+
+  console.log(ago)
+
+  return ago
 }
 
 export const bech32ToHex = (key: string) => {
