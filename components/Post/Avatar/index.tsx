@@ -18,7 +18,6 @@ export default function Avatar({ pubkey }: Props) {
         src={data?.picture || `data:image/svg+xml;utf8,${generateFromString(pubkey)}`}
         alt="avatar"
       />
-
       {/* <span className="absolute -bottom-0.5 -right-1 rounded-tl bg-transparent px-0.5 py-px">
         <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-cultured" aria-hidden="true" />
       </span> */}

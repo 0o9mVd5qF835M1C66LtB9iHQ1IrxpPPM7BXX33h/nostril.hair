@@ -3,8 +3,7 @@ import { mapEvent } from '../../utils'
 import ParsedText from '../ParsedText'
 import Avatar from '../Post/Avatar'
 import Username from '../Post/Username'
-import RepliedLink from '../RepliedLink'
-import Replies from '../Replies'
+import Reply from '../Replies'
 import PostSkeleton from '../Skeletons/Post'
 
 export interface NostrEvent {
@@ -17,7 +16,7 @@ export interface NostrEvent {
   tags: string[]
 }
 
-export default function Feed({ events }) {
+export default function Thread({ events }) {
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
       <ul>
@@ -26,16 +25,15 @@ export default function Feed({ events }) {
             const mappedEvent = mapEvent(event.content, event.tags)
             return (
               <li key={event.id} className="border-0 border-t dark:border-gray-700 px-4 py-6">
-                {mappedEvent.replies.length > 0 && (
-                  <div className="mb-2">
-                    <RepliedLink pubkey={event.pubkey} />
-                  </div>
-                )}
-                {mappedEvent.replies.length > 0 && (
-                  <div className="relative">
-                    <Replies replies={mappedEvent.replies} />
-                  </div>
-                )}
+                {/* {eventIndex !== event.length - 1 ? (
+                  <span
+                    className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+                    aria-hidden="true"
+                  />
+                ) : null} */}
+                {mappedEvent.replies.map((reply) => (
+                  <Reply reply={reply} key={reply} />
+                ))}
                 <div className="relative flex items-start space-x-3">
                   <Avatar pubkey={event.pubkey} />
                   <div className="min-w-0 flex-1">
@@ -53,7 +51,7 @@ export default function Feed({ events }) {
             )
           })
         ) : (
-          <PostSkeleton count={15} />
+          <PostSkeleton count={5} />
         )}
       </ul>
     </div>

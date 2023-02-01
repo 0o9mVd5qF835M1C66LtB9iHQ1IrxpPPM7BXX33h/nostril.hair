@@ -13,16 +13,16 @@ const inter = Inter({
 })
 
 const relayUrls = [
-  'wss://nostr-pub.wellorder.net',
-  'wss://relay.nostr.ch',
-  'wss://nostr.onsats.org',
-  'wss://nostr-relay.wlvs.space',
+  // 'wss://nostr-pub.wellorder.net',
+  // 'wss://relay.nostr.ch',
+  // 'wss://nostr.onsats.org',
+  // 'wss://nostr-relay.wlvs.space',
   'wss://nostr.bitcoiner.social',
   'wss://relay.damus.io',
-  'wss://nostr-relay.alexbosworth.com',
+  // 'wss://nostr-relay.alexbosworth.com',
   'wss://nostr.zebedee.cloud',
   'wss://relay.nostr.info',
-  'wss://nostr-pub.semisol.dev',
+  // 'wss://nostr-pub.semisol.dev',
   'wss://nostr.walletofsatoshi.com'
 ]
 

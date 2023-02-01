@@ -1,4 +1,4 @@
-export default function PostSkeleton({ count = 1 }) {
+export default function ReplySkeleton({ count = 1 }) {
   const countArray = Array.from(Array(count))
 
   return (
@@ -7,7 +7,7 @@ export default function PostSkeleton({ count = 1 }) {
         <li
           // eslint-disable-next-line react/no-array-index-key
           key={Math.random()}
-          className="border-0 border-t dark:border-gray-700 px-4 py-6"
+          className="mb-9"
         >
           <div className="animate-pulse flex space-x-4">
             <div className="rounded-full bg-richblack dark:bg-cultured h-12 w-12" />

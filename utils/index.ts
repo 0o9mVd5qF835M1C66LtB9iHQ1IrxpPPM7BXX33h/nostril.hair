@@ -65,17 +65,17 @@ export const hexToBech32 = (key: string, prefix: string) => {
   }
 }
 
-export const mapEvent = (text: string, tags: any[]) => {
+export const mapEvent = (content: string, tags: string[][]) => {
   const events = {
     profiles: [],
     replies: [],
     mentions: []
   }
   // eslint-disable-next-line no-param-reassign
-  text = String(text).trim()
-  if (text === '') {
+  content = String(content).trim()
+  if (content === '') {
     return {
-      text,
+      content,
       replies: [],
       mentions: tags.filter(([key, value]) => key === 'e' && value).map(([_, value]) => value)
     }
@@ -95,8 +95,8 @@ export const mapEvent = (text: string, tags: any[]) => {
       ([key, value, _, marker]) => key === 'e' && value && marker === 'reply'
     )
 
-    if (replyIndex >= 0) {
-      const [_, value] = tags[replyIndex]
+    if (Number(replyIndex) >= 0) {
+      const [_, value] = tags[Number(replyIndex)]
       if (!events.mentions.includes(value) && events.replies.length < 2) events.replies.push(value)
     }
   }
@@ -120,7 +120,7 @@ export const mapEvent = (text: string, tags: any[]) => {
     })
 
   return {
-    text: sanitize(text),
+    content: sanitize(content),
     replies: events.replies,
     mentions: events.mentions
   }
