@@ -1,6 +1,7 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getPublicKey } from 'nostr-tools'
 import { FiLogIn, FiLogOut, FiMoon, FiSettings, FiSun, FiUser } from 'react-icons/fi'
 import { useAppContext } from '../../context/AppContext'
 
@@ -13,8 +14,11 @@ export default function Header() {
       <nav aria-label="Top">
         <div className="py-6 space-y-9">
           <div className="flex justify-center">
-            <Link href="/" className="inline-flex items-center">
-              <Image src="/logo/nostril.svg" height={40} width={40} alt="logo" className="" />
+            <Link href="/" className="items-center dark:hidden">
+              <Image src="/logo/light.svg" height={40} width={40} alt="logo" className="" />
+            </Link>
+            <Link href="/" className="items-center hidden dark:inline-flex ">
+              <Image src="/logo/dark.svg" height={40} width={40} alt="logo" className="" />
             </Link>
           </div>
           <div className="flex justify-center">
@@ -26,6 +30,16 @@ export default function Header() {
               {resolvedTheme === 'light' ? <FiSun /> : <FiMoon />}
             </button>
           </div>
+          {!!privkey && (
+            <div className="flex justify-center">
+              <Link
+                href={`${getPublicKey(privkey)}`}
+                className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+              >
+                <FiUser />
+              </Link>
+            </div>
+          )}
           {!!privkey && (
             <div className="flex justify-center">
               <Link

@@ -32,10 +32,10 @@ export default function Username({ pubkey, createdAt }: Props) {
         </span>
       </Link>
       {data?.nip05 && (
-        <div className="inline-flex items-baseline align-middle">
+        <div className="inline-flex items-center align-middle pb-1">
           <BsFillPatchCheckFill className="text-carolinablue text-md ml-1 mr-1" />
-          <span className="text-sm text-gray-700 dark:text-gray-400 font-normal self-center">
-            {data.nip05}
+          <span className="text-sm text-gray-700 dark:text-gray-400 font-normal">
+            {data?.nip05.startsWith('_') ? data?.nip05.slice(1) : data?.nip05}
           </span>
         </div>
       )}
