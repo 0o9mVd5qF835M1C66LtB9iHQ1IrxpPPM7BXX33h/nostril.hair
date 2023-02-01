@@ -1,7 +1,7 @@
 'use client'
 
 import { useNostrEvents } from 'nostr-react'
-import Thread from '../../../../components/Thread'
+import Feed from '../../../../components/Feed'
 
 export default function Page({ params }) {
   const { events: post } = useNostrEvents({
@@ -12,5 +12,5 @@ export default function Page({ params }) {
     }
   })
 
-  return <Thread events={post} />
+  return <Feed events={post} />
 }
