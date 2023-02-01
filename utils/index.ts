@@ -24,7 +24,7 @@ export const relativeTimeUTC = (value: number) => {
   const hours = Math.floor(minutes / 60)
   if (hours < 24) return `${hours}h ago`
 
-  const ago = dayjs(value * 1000)
+  return dayjs(value * 1000)
     .fromNow()
     .replace(' days', 'd')
     .replace(' day', 'd')
@@ -34,10 +34,6 @@ export const relativeTimeUTC = (value: number) => {
     .replace(' month', 'mo')
     .replace(' years', 'y')
     .replace(' year', 'y')
-
-  console.log(ago)
-
-  return ago
 }
 
 export const bech32ToHex = (key: string) => {
