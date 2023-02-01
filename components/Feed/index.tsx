@@ -1,3 +1,4 @@
+import { mapEvent } from '../../utils'
 import ParsedText from '../ParsedText'
 import Avatar from '../Post/Avatar'
 import Username from '../Post/Username'
@@ -19,6 +20,8 @@ export default function Feed({ events }) {
       <ul>
         {events.length > 0 ? (
           events.map((event) => {
+            const mappedEvent = mapEvent(event.content, event.tags)
+            console.log(mappedEvent)
             return (
               <li key={event.id} className="border-0 border-t dark:border-gray-700 px-4 py-6">
                 <div className="relative ">

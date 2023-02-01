@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import dayjs from 'dayjs'
 import { nip19 } from 'nostr-tools'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { sanitize } from 'dompurify'
 
 dayjs.extend(relativeTime)
 
@@ -59,5 +62,54 @@ export const hexToBech32 = (key: string, prefix: string) => {
     }
   } catch (error) {
     return ''
+  }
+}
+
+export const mapEvent = (text: string, tags: any) => {
+  const events = {
+    profiles: [],
+    replyEvents: [],
+    mentionEvents: []
+  }
+  // eslint-disable-next-line no-param-reassign
+  text = String(text).trim()
+  if (text === '') {
+    return {
+      text,
+      replyEvents: [],
+      mentionEvents: tags.filter(([t, v]) => t === 'e' && v).map(([_, v]) => v)
+    }
+  }
+  const rootIdx = tags.findIndex(([t, v, _, marker]) => t === 'e' && v && marker === 'root')
+  if (rootIdx >= 0) {
+    const [_, v] = tags[rootIdx]
+    if (!events.mentionEvents.includes(v) && events.replyEvents.length < 2)
+      events.replyEvents.push(v)
+    const replyIdx = tags.find(([t, v, _, marker]) => t === 'e' && v && marker === 'reply')
+    if (replyIdx >= 0) {
+      const [_, v] = tags[replyIdx]
+      if (!events.mentionEvents.includes(v) && events.replyEvents.length < 2)
+        events.replyEvents.push(v)
+    }
+  }
+  tags
+    .filter(([t, v, _, marker]) => t === 'e' && v && marker === 'mention')
+    .forEach(([t, v], index) => {
+      if (!events.mentionEvents.includes(v)) events.mentionEvents.push(v)
+    })
+  tags
+    .filter(([t, v]) => t === 'e' && v)
+    .forEach(([t, v], index) => {
+      if (!events.mentionEvents.includes(v) && !events.replyEvents.includes(v)) {
+        // if (index < 2) mentions.replyEvents.push(v)
+        if (events.replyEvents.length < 2) events.replyEvents.push(v)
+        else events.mentionEvents.push(v)
+      }
+    })
+
+  return {
+    text: sanitize(text),
+    replies: events.replyEvents,
+    mentions: events.mentionEvents
   }
 }
