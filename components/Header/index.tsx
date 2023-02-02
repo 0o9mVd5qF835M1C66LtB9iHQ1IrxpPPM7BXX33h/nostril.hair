@@ -15,10 +15,36 @@ export default function Header() {
         <div className="py-6 space-y-9">
           <div className="flex justify-center">
             <Link href="/" className="items-center dark:hidden">
-              <Image src="/logo/light.svg" height={48} width={48} alt="logo" className="" />
+              <Image
+                src="/logo/light.svg"
+                height={48}
+                width={48}
+                alt="logo"
+                className="hidden sm:block"
+              />
+              <Image
+                src="/logo/light.svg"
+                height={40}
+                width={40}
+                alt="logo"
+                className="block sm:hidden"
+              />
             </Link>
             <Link href="/" className="items-center hidden dark:inline-flex ">
-              <Image src="/logo/dark.svg" height={48} width={48} alt="logo" className="" />
+              <Image
+                src="/logo/dark.svg"
+                height={48}
+                width={48}
+                alt="logo"
+                className="hidden sm:block"
+              />
+              <Image
+                src="/logo/dark.svg"
+                height={48}
+                width={48}
+                alt="logo"
+                className="block sm:hidden"
+              />
             </Link>
           </div>
           <div className="flex justify-center">
