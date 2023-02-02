@@ -94,7 +94,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div className="absolute bottom-7 left-7">
+            <div className="absolute mx-auto left-0 right-0 bottom-7 text-center">
               <Link href="/auth">
                 <button
                   type="button"
