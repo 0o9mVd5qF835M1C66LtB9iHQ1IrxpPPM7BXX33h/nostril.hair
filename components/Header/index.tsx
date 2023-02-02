@@ -40,8 +40,8 @@ export default function Header() {
               />
               <Image
                 src="/logo/dark.svg"
-                height={48}
-                width={48}
+                height={40}
+                width={40}
                 alt="logo"
                 className="block sm:hidden"
               />
