@@ -20,6 +20,8 @@ export default function Username({ pubkey, createdAt }: Props) {
     username = data.username
   } else if (data?.display_name) {
     username = data.display_name
+  } else if (data?.name) {
+    username = data.name
   } else {
     username = shortenID(pubkey)
   }
@@ -34,9 +36,15 @@ export default function Username({ pubkey, createdAt }: Props) {
           <BsFillPatchCheckFill className="inline-flex text-carolinablue text-md ml-1 mb-px" />
         )}
       </Link>
-      <p className="inline-flex text-sm font-normal text-gray-700 dark:text-gray-400 self-center">
+      {data?.username ||
+        (data?.name && (
+          <span className="text-sm font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1">
+            {data?.username || data?.name || ''}
+          </span>
+        ))}
+      <span className="inline-flex text-sm font-normal text-gray-700 dark:text-gray-400 self-center align-middle">
         &nbsp;· {relativeTimeUTC(createdAt)}
-      </p>
+      </span>
       {data?.nip05 && (
         <div className="items-center align-middle self-center pb-1 -mt-1.5">
           <span className="text-[0.815rem] text-gray-700 dark:text-gray-400 font-normal">

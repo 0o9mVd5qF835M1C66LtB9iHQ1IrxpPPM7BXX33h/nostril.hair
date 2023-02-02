@@ -62,7 +62,7 @@ export default function Feed({ events }) {
               )
             })
         ) : (
-          <PostSkeleton count={15} />
+          <PostSkeleton />
         )}
       </ul>
     </div>

@@ -12,7 +12,7 @@ export default function Page() {
       ids: [pathname.slice(1)],
       since: 0,
       kinds: [1],
-      limit: 1
+      limit: 15
     }
   })
 
@@ -21,7 +21,7 @@ export default function Page() {
       authors: [pathname.slice(1)],
       since: 0,
       kinds: [1],
-      limit: 1
+      limit: 15
     }
   })
 
