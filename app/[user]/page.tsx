@@ -11,7 +11,8 @@ export default function Page() {
     filter: {
       ids: [pathname.slice(1)],
       since: 0,
-      kinds: [1]
+      kinds: [1],
+      limit: 1
     }
   })
 
@@ -19,7 +20,8 @@ export default function Page() {
     filter: {
       authors: [pathname.slice(1)],
       since: 0,
-      kinds: [1]
+      kinds: [1],
+      limit: 1
     }
   })
 

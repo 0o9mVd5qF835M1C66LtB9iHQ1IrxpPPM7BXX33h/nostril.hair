@@ -8,7 +8,8 @@ export default function Page() {
   const { events } = useNostrEvents({
     filter: {
       since: dayjs().unix(),
-      kinds: [1]
+      kinds: [1],
+      limit: 1
     }
   })
 

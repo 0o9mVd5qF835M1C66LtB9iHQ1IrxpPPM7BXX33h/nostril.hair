@@ -11,8 +11,8 @@ export const shortenID = (ID: string, number = 5) => {
   if (!ID) return ''
   const prefix = ID.slice(0, 4)
   if (['npub', 'nsec', 'note'].includes(prefix))
-    return `${ID.slice(0, number + prefix.length)}…${ID.slice(-number)}`
-  return ID ? `${ID.slice(0, number)}…${ID.slice(-number)}` : ''
+    return `${ID.slice(0, number + prefix.length)}:${ID.slice(-number)}`
+  return ID ? `${ID.slice(0, number)}:${ID.slice(-number)}` : ''
 }
 
 export const relativeTimeUTC = (value: number) => {
