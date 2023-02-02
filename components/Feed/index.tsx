@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { Event } from 'nostr-tools'
 import { mapEvent } from '../../utils'
 import ParsedText from '../ParsedText'
@@ -19,13 +20,19 @@ export interface NostrEvent {
 
 export default function Feed({ events }) {
   return (
-    <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
+    <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
       <ul>
         {events.length > 0 ? (
-          events.map((event: Event) => {
+          events.map((event: Event, eventIndex: number) => {
             const mappedEvent = mapEvent(event.content, event.tags)
             return (
-              <li key={event.id} className="border-0 border-t dark:border-gray-700 px-4 py-6">
+              <li
+                key={event.id}
+                className={classNames(
+                  'border-0 border-t dark:border-gray-700 px-4 py-6',
+                  eventIndex === 0 && 'border-none'
+                )}
+              >
                 {mappedEvent.replies.length > 0 && (
                   <div className="mb-2">
                     <RepliedLink pubkey={event.pubkey} />

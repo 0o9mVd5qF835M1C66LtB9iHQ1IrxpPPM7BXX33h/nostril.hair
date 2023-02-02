@@ -2,7 +2,7 @@ import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getPublicKey } from 'nostr-tools'
-import { FiLogIn, FiLogOut, FiMoon, FiSettings, FiSun, FiUser } from 'react-icons/fi'
+import { FiHome, FiLogIn, FiLogOut, FiMoon, FiSettings, FiSun, FiUser } from 'react-icons/fi'
 import { useAppContext } from '../../context/AppContext'
 
 export default function Header() {
@@ -10,9 +10,9 @@ export default function Header() {
   const { privkey, setPrivkey } = useAppContext()
 
   return (
-    <header className="sticky top-0 inset-x-0 dark:bg-dark bg-cultured flex flex-col">
+    <header className="sticky top-0 inset-x-0 dark:bg-dark bg-cultured h-screen flex flex-col">
       <nav aria-label="Top">
-        <div className="py-6 space-y-9">
+        <div className="py-6 space-y-9 h-screen">
           <div className="flex justify-center">
             <Link href="/" className="items-center dark:hidden">
               <Image
@@ -30,7 +30,7 @@ export default function Header() {
                 className="block sm:hidden"
               />
             </Link>
-            <Link href="/" className="items-center hidden dark:inline-flex ">
+            <Link href="/" className="items-center hidden dark:block">
               <Image
                 src="/logo/dark.svg"
                 height={48}
@@ -47,11 +47,19 @@ export default function Header() {
               />
             </Link>
           </div>
+          <div className="flex justify-center mt-3">
+            <Link
+              href="/"
+              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+            >
+              <FiHome />
+            </Link>
+          </div>
           <div className="flex justify-center">
             <button
               type="button"
               onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl mt-3"
+              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
             >
               {resolvedTheme === 'light' ? <FiSun /> : <FiMoon />}
             </button>
@@ -86,7 +94,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div className="flex justify-center">
+            <div className="absolute bottom-7 left-7">
               <Link href="/auth">
                 <button
                   type="button"

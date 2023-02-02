@@ -35,7 +35,7 @@ export default function Username({ pubkey, createdAt }: Props) {
         <div className="inline-flex items-center align-middle pb-1">
           <BsFillPatchCheckFill className="text-carolinablue text-md ml-1 mr-1" />
           <span className="text-sm text-gray-700 dark:text-gray-400 font-normal">
-            {data?.nip05.startsWith('_') ? data?.nip05.slice(1) : data?.nip05}
+            {data?.nip05 ? data?.nip05.substring(data?.nip05.lastIndexOf('@')) : data?.nip05}
           </span>
         </div>
       )}

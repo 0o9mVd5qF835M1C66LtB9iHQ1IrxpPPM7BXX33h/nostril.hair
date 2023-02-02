@@ -29,14 +29,15 @@ export const relativeTimeUTC = (value: number) => {
 
   return dayjs(value * 1000)
     .fromNow()
+    .replace('a ', '1')
     .replace(' days', 'd')
-    .replace(' day', 'd')
+    .replace('day', 'd')
     .replace(' weeks', 'w')
-    .replace(' week', 'w')
+    .replace('week', 'w')
     .replace(' months', 'mo')
-    .replace(' month', 'mo')
+    .replace('month', 'mo')
     .replace(' years', 'y')
-    .replace(' year', 'y')
+    .replace('year', 'y')
 }
 
 export const bech32ToHex = (key: string) => {
