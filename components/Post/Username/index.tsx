@@ -28,7 +28,7 @@ export default function Username({ pubkey, createdAt }: Props) {
   return (
     <>
       <Link href={`/user?pubkey=${pubkey}`}>
-        <span className="hover:underline dark:decoration-cultured decoration-richblack font-medium text-richblack dark:text-cultured text-[15px]">
+        <span className="hover:underline dark:decoration-cultured decoration-richblack font-medium text-richblack dark:text-cultured text-[15px] max-w-prose truncate">
           {username}
         </span>
       </Link>
@@ -36,7 +36,7 @@ export default function Username({ pubkey, createdAt }: Props) {
         <BsFillPatchCheckFill className="inline-flex text-carolinablue text-md ml-1 mb-px" />
       )}
       {(data?.username || data?.name) && (
-        <span className="text-sm font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1">
+        <span className="text-sm font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1 max-w-prose truncate">
           {data?.username || data?.name || ''}
         </span>
       )}
@@ -44,8 +44,8 @@ export default function Username({ pubkey, createdAt }: Props) {
         &nbsp;· {relativeTimeUTC(createdAt)}
       </span>
       {data?.nip05 && (
-        <div className="items-center align-middle self-center pb-1 -mt-1.5">
-          <span className="text-[0.815rem] text-gray-700 dark:text-gray-400 font-normal">
+        <div className="items-center align-middle self-center pb-1 -mt-1.5 max-w-sm truncate">
+          <span className="text-[0.815rem] text-gray-700 dark:text-gray-400 font-normal truncate">
             {data?.nip05.startsWith('_') ? data.nip05.split('_') : data.nip05 || ''}
           </span>
         </div>
