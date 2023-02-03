@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { getPublicKey } from 'nostr-tools'
 import { useState } from 'react'
 import InfoButton from '../../components/Button/Info'
 import UnstyledButton from '../../components/Button/Unstyled'
@@ -9,7 +10,7 @@ import { bech32ToHex } from '../../utils'
 
 export default function Page() {
   const [value, setValue] = useState('')
-  const { setPrivkey } = useAppContext()
+  const { setPrivkey, setPubkey } = useAppContext()
 
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
@@ -48,7 +49,10 @@ export default function Page() {
                     <Link href="/">
                       <InfoButton
                         text="Sign in"
-                        onClick={() => setPrivkey(bech32ToHex(value) as string)}
+                        onClick={() => {
+                          setPrivkey(bech32ToHex(value) as string)
+                          setPubkey(getPublicKey(bech32ToHex(value) as string))
+                        }}
                         disabled={!value.startsWith('nsec') || !bech32ToHex(value)}
                       />
                     </Link>

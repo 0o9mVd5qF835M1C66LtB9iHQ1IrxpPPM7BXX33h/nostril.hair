@@ -27,7 +27,7 @@ export default function Username({ pubkey, createdAt }: Props) {
 
   return (
     <>
-      <Link href={pubkey}>
+      <Link href={`/user?pubkey=${pubkey}`}>
         <span className="hover:underline dark:decoration-cultured decoration-richblack font-medium text-richblack dark:text-cultured text-[15px]">
           {username}
         </span>

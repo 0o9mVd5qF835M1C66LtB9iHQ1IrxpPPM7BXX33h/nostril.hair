@@ -16,6 +16,7 @@ interface Props {
   setLimit: (_limit: number) => void
   loading: boolean
   setEvents: (_events: Event[]) => void
+  pubkey?: string
 }
 
 export default function Feed({ slicedEvents, allEvents, setLimit, loading, setEvents }: Props) {
@@ -86,7 +87,7 @@ export default function Feed({ slicedEvents, allEvents, setLimit, loading, setEv
         })}
         <div
           ref={sentryRef}
-          className="flex justify-center items-center border-t dark:border-t-gray-700 py-6"
+          className="flex justify-center items-center border-t dark:border-t-gray-700 py-16"
         >
           <div className="h-3 w-3 rounded-full animate-pulse dark:bg-carolinablue bg-tallships" />
         </div>

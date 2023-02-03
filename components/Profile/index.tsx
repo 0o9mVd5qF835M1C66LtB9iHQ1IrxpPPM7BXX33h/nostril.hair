@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useProfile } from 'nostr-react'
-import { getPublicKey } from 'nostr-tools'
 import { useEffect, useState } from 'react'
 import { BsFillPatchCheckFill } from 'react-icons/bs'
 import { FiLink, FiZap } from 'react-icons/fi'
@@ -18,7 +17,7 @@ interface Props {
 export default function Profile({ pubkey }: Props) {
   const [hasData, setHasData] = useState(false)
   const { push } = useRouter()
-  const { privkey } = useAppContext()
+  const { privkey, pubkey: sessionPubkey } = useAppContext()
   const { data } = useProfile({ pubkey, enabled: !hasData })
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function Profile({ pubkey }: Props) {
                 />
               </div>
             )}
-            {!!privkey && getPublicKey(privkey) === pubkey && (
+            {!!privkey && pubkey === sessionPubkey && (
               <div className="self-end justify-end ml-1">
                 <UnstyledButton text="Edit profile" onClick={() => push('/settings')} />
               </div>

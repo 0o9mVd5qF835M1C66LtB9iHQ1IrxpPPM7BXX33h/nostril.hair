@@ -1,13 +1,12 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getPublicKey } from 'nostr-tools'
 import { FiHome, FiLogIn, FiLogOut, FiMoon, FiSettings, FiSun, FiUser } from 'react-icons/fi'
 import { useAppContext } from '../../context/AppContext'
 
 export default function Header() {
   const { resolvedTheme, setTheme } = useTheme()
-  const { privkey, setPrivkey } = useAppContext()
+  const { privkey, setPrivkey, pubkey } = useAppContext()
 
   return (
     <header className="sticky top-0 inset-x-0 dark:bg-dark bg-cultured h-screen flex flex-col">
@@ -67,7 +66,7 @@ export default function Header() {
           {!!privkey && (
             <div className="flex justify-center">
               <Link
-                href={`${getPublicKey(privkey)}`}
+                href={`/user?pubkey=${pubkey}`}
                 className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
               >
                 <FiUser />
