@@ -31,45 +31,43 @@ export default function Feed({ events, setLimit, loading }) {
   return (
     <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
       <ul className="scroll-smooth">
-        {events
-          .sort((a: Event, b: Event) => a.created_at + b.created_at)
-          .map((event: Event, eventIndex: number) => {
-            const mappedEvent = mapEvent(event.content, event.tags)
-            return (
-              <li
-                key={event.id}
-                className={classNames(
-                  'border-0 border-t dark:border-gray-700 px-4 py-6',
-                  eventIndex === 0 && 'border-none',
-                  eventIndex === events.length - 1 && loading && 'animate-pulse bg-opacity-30 pb-12'
-                )}
-              >
-                {mappedEvent.replies.length > 0 && (
-                  <div className="mb-2">
-                    <RepliedLink pubkey={event.pubkey} />
+        {events.map((event: Event, eventIndex: number) => {
+          const mappedEvent = mapEvent(event.content, event.tags)
+          return (
+            <li
+              key={event.id}
+              className={classNames(
+                'border-0 border-t dark:border-gray-700 px-4 py-6',
+                eventIndex === 0 && 'border-none',
+                eventIndex === events.length - 1 && loading && 'animate-pulse bg-opacity-30 pb-12'
+              )}
+            >
+              {mappedEvent.replies.length > 0 && (
+                <div className="mb-2">
+                  <RepliedLink pubkey={event.pubkey} />
+                </div>
+              )}
+              {mappedEvent.replies.length > 0 && (
+                <div className="relative">
+                  <Chain replies={mappedEvent.replies} />
+                </div>
+              )}
+              <div className="relative flex items-start space-x-3">
+                <Avatar pubkey={event.pubkey} />
+                <div className="min-w-0 flex-1">
+                  <div>
+                    <Username pubkey={event.pubkey} createdAt={event.created_at} />
                   </div>
-                )}
-                {mappedEvent.replies.length > 0 && (
-                  <div className="relative">
-                    <Chain replies={mappedEvent.replies} />
-                  </div>
-                )}
-                <div className="relative flex items-start space-x-3">
-                  <Avatar pubkey={event.pubkey} />
-                  <div className="min-w-0 flex-1">
-                    <div>
-                      <Username pubkey={event.pubkey} createdAt={event.created_at} />
-                    </div>
-                    <div className="mt-2 text-sm text-richblack dark:text-cultured font-normal">
-                      <div className="break-words">
-                        <ParsedText content={mappedEvent.content} />
-                      </div>
+                  <div className="mt-2 text-sm text-richblack dark:text-cultured font-normal">
+                    <div className="break-words">
+                      <ParsedText content={mappedEvent.content} />
                     </div>
                   </div>
                 </div>
-              </li>
-            )
-          })}
+              </div>
+            </li>
+          )
+        })}
       </ul>
       <div ref={sentryRef} />
     </div>

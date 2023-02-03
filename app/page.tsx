@@ -3,15 +3,20 @@
 import { useNostrEvents } from 'nostr-react'
 import Feed from '../components/Feed'
 import dayjs from 'dayjs'
+import { useState } from 'react'
 
 export default function Page() {
-  const { events } = useNostrEvents({
+  const [limit, setLimit] = useState(15)
+
+  const { events, isLoading: loading } = useNostrEvents({
     filter: {
       since: dayjs().unix(),
       kinds: [1],
-      limit: 1
+      limit
     }
   })
 
-  return <Feed events={events} />
+  const sortedEvent = events.sort((a, b) => a.created_at + b.created_at)
+
+  return <Feed events={sortedEvent} setLimit={setLimit} loading={loading} />
 }
