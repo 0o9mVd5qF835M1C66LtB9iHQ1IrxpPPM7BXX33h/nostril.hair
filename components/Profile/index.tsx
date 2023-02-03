@@ -60,20 +60,20 @@ export default function Profile({ pubkey }: Props) {
             )}
           </div>
           <div className="mt-6">
-            <span className="font-medium text-richblack dark:text-cultured text-xl">
+            <span className="font-medium text-richblack dark:text-cultured text-xl max-w-prose truncate">
               {data?.display_name || shortenID(pubkey)}
             </span>
             {hasData && data?.nip05 && (
               <BsFillPatchCheckFill className="inline-flex text-carolinablue text-lg ml-1 mb-2" />
             )}
             {(data?.username || data?.name) && (
-              <span className="text-md font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1">
+              <span className="text-md font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1 max-w-prose truncate">
                 {data?.username || data?.name || ''}
               </span>
             )}
             <div>
               {data?.nip05 && (
-                <div className="items-center align-middle self-center pb-1 -mt-1">
+                <div className="items-center align-middle self-center pb-1 -mt-1 max-w-prose truncate">
                   <span className="text-sm text-gray-700 dark:text-gray-400 font-normal">
                     {data.nip05.startsWith('_') ? data.nip05.split('_') : data.nip05 || ''}
                   </span>
@@ -82,7 +82,7 @@ export default function Profile({ pubkey }: Props) {
             </div>
             <div>
               {data?.about && (
-                <div className="items-center align-middle self-center pb-1 mt-1">
+                <div className="items-center align-middle self-center pb-1 mt-1 max-w-prose">
                   <span className="text-sm text-richblack dark:text-cultured font-normal">
                     {data.about}
                   </span>

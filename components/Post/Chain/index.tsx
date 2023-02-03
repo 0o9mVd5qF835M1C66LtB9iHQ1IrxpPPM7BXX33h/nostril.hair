@@ -4,7 +4,6 @@ import { useNostrEvents } from 'nostr-react'
 import ParsedText from '../../ParsedText'
 import Avatar from '../Avatar'
 import Username from '../Username'
-import classNames from 'classnames'
 
 interface Props {
   replies: string[]
@@ -24,10 +23,7 @@ export default function Chain({ replies }: Props) {
       {replyEvents
         .sort((a, b) => a.created_at - b.created_at)
         .map((event) => (
-          <li
-            key={event.id}
-            className={classNames('mb-9', loading && 'animate-pulse bg-opacity-10')}
-          >
+          <li key={event.id} className="mb-9">
             <div className="relative">
               <span
                 className="absolute top-9 left-[23px] h-full w-[0.093rem] bg-gray-400 dark:bg-gray-500"

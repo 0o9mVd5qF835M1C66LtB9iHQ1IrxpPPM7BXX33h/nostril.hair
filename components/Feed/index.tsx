@@ -9,51 +9,60 @@ import Username from '../Post/Username'
 import RepliedLink from '../Post/RepliedLink'
 import Chain from '../Post/Chain'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  slicedEvents: Event[]
-  allEvents: Event[]
-  setLimit: (_limit: number) => void
+  incomingEvents: Event[]
   loading: boolean
-  setEvents: (_events: Event[]) => void
   pubkey?: string
 }
 
-export default function Feed({ slicedEvents, allEvents, setLimit, loading, setEvents }: Props) {
-  const [sentryRef] = useInfiniteScroll({
-    loading,
-    hasNextPage: true,
-    onLoadMore: () => {
-      if (setLimit) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        setLimit((limit: number) => limit + 3)
-      }
-    },
-    rootMargin: '0px 0px 50px 0px'
-  })
+export default function Feed({ incomingEvents, loading }: Props) {
+  const [events, setEvents] = useState([])
+
+  useEffect(() => {
+    if (events.length < 10) {
+      setEvents(incomingEvents.slice(0, 10))
+    }
+  }, [incomingEvents, events])
+
+  // const [sentryRef] = useInfiniteScroll({
+  //   loading,
+  //   hasNextPage: !loading,
+  //   onLoadMore: () => {
+  //     if (incomingEvents.length >= 10) {
+  //       setEvents([
+  //         ...events,
+  //         ...incomingEvents
+  //           .slice(incomingEvents.length - 10, incomingEvents.length)
+  //           .sort((a, b) => a.created_at - b.created_at)
+  //       ])
+  //     }
+  //   },
+  //   rootMargin: '0px 0px 50px 0px'
+  // })
 
   return (
     <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
       <ul className="scroll-smooth bg-opacity-100">
-        {slicedEvents.length < allEvents.length && (
+        {incomingEvents.length > events.length && (
           <li className="border-0 border-b dark:border-gray-700 py-6 bg-opacity-100">
             <div className="flex justify-center">
               <button
                 type="button"
                 className="text-[15px] text-blue-700 dark:text-carolinablue hover:opacity-90"
-                onClick={() => setEvents(allEvents)}
+                onClick={() => setEvents(incomingEvents)}
               >
-                Show {allEvents.length - slicedEvents.length} posts
+                Show {incomingEvents.length - events.length} posts
               </button>
             </div>
           </li>
         )}
-        {slicedEvents.map((event: Event, eventIndex: number) => {
+        {events.map((event: Event, eventIndex: number) => {
           const mappedEvent = mapEvent(event.content, event.tags)
           return (
             <li
-              key={event.id}
+              key={Math.random()}
               className={classNames(
                 'border-0 border-t dark:border-gray-700 px-4 py-6',
                 eventIndex === 0 && 'border-none'
@@ -86,8 +95,8 @@ export default function Feed({ slicedEvents, allEvents, setLimit, loading, setEv
           )
         })}
         <div
-          ref={sentryRef}
-          className="flex justify-center items-center border-t dark:border-t-gray-700 py-16"
+          // ref={sentryRef}
+          className="flex justify-center items-center border-t dark:border-t-gray-700 py-8"
         >
           <div className="h-3 w-3 rounded-full animate-pulse dark:bg-carolinablue bg-tallships" />
         </div>
