@@ -23,12 +23,12 @@ export default function Avatar({ pubkey }: Props) {
       ) : (
         <div className="z-50">
           <img
-            className="h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex border border-cultured z-50 bg-richblack p-2"
+            className="h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex bg-nero p-2"
             src="/logo/dark.svg"
             alt=""
           />
           <img
-            className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden border border-richblack z-50 bg-cultured p-2"
+            className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden bg-gray-200 p-2"
             src="/logo/light.svg"
             alt=""
           />

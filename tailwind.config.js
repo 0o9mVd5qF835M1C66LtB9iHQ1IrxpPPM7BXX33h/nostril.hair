@@ -17,6 +17,7 @@ module.exports = {
     extend: {
       colors: {
         cultured: '#F9FAFB',
+        mintcream: '#F5FFFA',
         quicksilver: '#A8A29E',
         fordarkgreen: '#38C08F',
         forlightgreen: '#008A5D',

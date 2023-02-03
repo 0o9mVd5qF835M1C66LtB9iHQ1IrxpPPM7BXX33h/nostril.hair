@@ -8,38 +8,52 @@ import RepliedLink from '../Post/RepliedLink'
 import Chain from '../Post/Chain'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 
-export interface NostrEvent {
-  content: string
-  created_at: number
-  id: string
-  kind: number
-  pubkey: string
-  sig: string
-  tags: string[]
+interface Props {
+  slicedEvents: Event[]
+  allEvents: Event[]
+  setLimit: (_limit: number) => void
+  loading: boolean
+  setEvents: (_events: Event[]) => void
 }
 
-export default function Feed({ events, setLimit, loading }) {
+export default function Feed({ slicedEvents, allEvents, setLimit, loading, setEvents }: Props) {
   const [sentryRef] = useInfiniteScroll({
     loading,
     hasNextPage: true,
     onLoadMore: () => {
-      setLimit((limit: number) => limit + 3)
+      if (setLimit) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setLimit((limit: number) => limit + 3)
+      }
     },
     rootMargin: '0px 0px 50px 0px'
   })
 
   return (
     <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
-      <ul className="scroll-smooth">
-        {events.map((event: Event, eventIndex: number) => {
+      <ul className="scroll-smooth bg-opacity-100">
+        {slicedEvents.length < allEvents.length && (
+          <li className="border-0 border-b dark:border-gray-700 py-6 bg-opacity-100">
+            <div className="flex justify-center">
+              <button
+                type="button"
+                className="text-blue-700 dark:text-carolinablue hover:opacity-90"
+                onClick={() => setEvents(allEvents)}
+              >
+                Show {allEvents.length - slicedEvents.length} posts
+              </button>
+            </div>
+          </li>
+        )}
+        {slicedEvents.map((event: Event, eventIndex: number) => {
           const mappedEvent = mapEvent(event.content, event.tags)
           return (
             <li
               key={event.id}
               className={classNames(
                 'border-0 border-t dark:border-gray-700 px-4 py-6',
-                eventIndex === 0 && 'border-none',
-                eventIndex === events.length - 1 && loading && 'animate-pulse bg-opacity-30 pb-12'
+                eventIndex === 0 && 'border-none'
               )}
             >
               {mappedEvent.replies.length > 0 && (
@@ -68,8 +82,13 @@ export default function Feed({ events, setLimit, loading }) {
             </li>
           )
         })}
+        <div
+          ref={sentryRef}
+          className="flex justify-center items-center border-t dark:border-t-gray-700 py-6"
+        >
+          <div className="h-3 w-3 rounded-full animate-pulse dark:bg-carolinablue bg-tallships" />
+        </div>
       </ul>
-      <div ref={sentryRef} />
     </div>
   )
 }

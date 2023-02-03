@@ -4,19 +4,33 @@ import { useNostrEvents } from 'nostr-react'
 import Feed from '../components/Feed'
 import dayjs from 'dayjs'
 import { useState } from 'react'
+import { Event } from 'nostr-tools'
 
 export default function Page() {
-  const [limit, setLimit] = useState(15)
+  const [events, setEvents] = useState<Event[]>([])
+  const [limit, setLimit] = useState(1)
 
-  const { events, isLoading: loading } = useNostrEvents({
+  const { events: allEvents, isLoading: loading } = useNostrEvents({
     filter: {
-      since: dayjs().unix(),
+      until: limit === 1 ? dayjs().add(15, 'seconds').unix() : undefined,
       kinds: [1],
       limit
     }
   })
 
-  const sortedEvent = events.sort((a, b) => a.created_at + b.created_at)
+  const slicedSortedEvents = allEvents
+    .slice(allEvents.length - 15, allEvents.length)
+    .sort((a, b) => a.created_at + b.created_at)
 
-  return <Feed events={sortedEvent} setLimit={setLimit} loading={loading} />
+  const allSortedEvents = allEvents.sort((a, b) => a.created_at + b.created_at)
+
+  return (
+    <Feed
+      slicedEvents={events.length > 0 ? events : slicedSortedEvents}
+      allEvents={allSortedEvents}
+      loading={loading}
+      setLimit={setLimit}
+      setEvents={setEvents}
+    />
+  )
 }

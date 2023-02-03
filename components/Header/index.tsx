@@ -50,7 +50,7 @@ export default function Header() {
           <div className="flex justify-center mt-3">
             <Link
               href="/"
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+              className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
             >
               <FiHome />
             </Link>
@@ -59,7 +59,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-              className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+              className="text-richblack hover:text-richblack dark:text-cultured  dark:hover:text-cultured text-2xl"
             >
               {resolvedTheme === 'light' ? <FiSun /> : <FiMoon />}
             </button>
@@ -68,7 +68,7 @@ export default function Header() {
             <div className="flex justify-center">
               <Link
                 href={`${getPublicKey(privkey)}`}
-                className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+                className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
               >
                 <FiUser />
               </Link>
@@ -78,7 +78,7 @@ export default function Header() {
             <div className="flex justify-center">
               <Link
                 href="/settings"
-                className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+                className="text-richblack hover:text-richblack dark:text-cultured  dark:hover:text-cultured text-2xl"
               >
                 <FiSettings />
               </Link>
@@ -88,7 +88,7 @@ export default function Header() {
             <div className="flex justify-center">
               <Link
                 href="/auth"
-                className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+                className="text-richblack hover:text-richblack dark:text-cultured  dark:hover:text-cultured text-2xl"
               >
                 <FiLogIn />
               </Link>
@@ -98,7 +98,7 @@ export default function Header() {
               <Link href="/auth">
                 <button
                   type="button"
-                  className="text-stone-700 hover:text-richblack dark:text-quicksilver  dark:hover:text-slate-200 text-2xl"
+                  className="text-richblack hover:text-richblack dark:text-cultured  dark:hover:text-cultured text-2xl"
                   onClick={() => setPrivkey('')}
                 >
                   <FiLogOut />

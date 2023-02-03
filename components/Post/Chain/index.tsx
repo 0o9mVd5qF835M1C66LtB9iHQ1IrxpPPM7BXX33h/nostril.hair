@@ -26,11 +26,11 @@ export default function Chain({ replies }: Props) {
         .map((event) => (
           <li
             key={event.id}
-            className={classNames('mb-9', loading && 'animate-pulse bg-opacity-30')}
+            className={classNames('mb-9', loading && 'animate-pulse bg-opacity-10')}
           >
             <div className="relative">
               <span
-                className="absolute top-9 left-[23px] h-full w-[0.09rem] bg-gray-200 dark:bg-gray-700"
+                className="absolute top-9 left-[23px] h-full w-[0.093rem] bg-gray-400 dark:bg-gray-500"
                 aria-hidden="true"
               />
               <div className="relative flex items-start space-x-3">
