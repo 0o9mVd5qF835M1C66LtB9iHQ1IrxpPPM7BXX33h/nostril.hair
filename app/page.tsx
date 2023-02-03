@@ -12,7 +12,7 @@ export default function Page() {
 
   const { events: allEvents, isLoading: loading } = useNostrEvents({
     filter: {
-      until: limit === 1 ? dayjs().add(15, 'seconds').unix() : undefined,
+      until: limit === 1 && dayjs().add(15, 'seconds').unix(),
       kinds: [1],
       limit
     }
