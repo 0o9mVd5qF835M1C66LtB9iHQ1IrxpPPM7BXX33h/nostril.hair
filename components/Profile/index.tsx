@@ -42,12 +42,12 @@ export default function Profile({ pubkey }: Props) {
             ) : (
               <div>
                 <img
-                  className="h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex border border-cultured p-2 bg-richblack"
+                  className="h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex p-2 bg-nero"
                   src="/logo/dark.svg"
                   alt=""
                 />
                 <img
-                  className="flex h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden border border-richblack p-2 bg-cultured"
+                  className="flex h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden p-2 bg-gray-200"
                   src="/logo/light.svg"
                   alt=""
                 />
