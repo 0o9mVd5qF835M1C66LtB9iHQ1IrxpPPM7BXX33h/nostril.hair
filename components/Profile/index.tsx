@@ -11,7 +11,11 @@ import { useAppContext } from '../../context/AppContext'
 import { shortenID } from '../../utils'
 import UnstyledButton from '../Button/Unstyled'
 
-export default function Profile({ pubkey }) {
+interface Props {
+  pubkey: string
+}
+
+export default function Profile({ pubkey }: Props) {
   const [hasData, setHasData] = useState(false)
   const { push } = useRouter()
   const { privkey } = useAppContext()
@@ -103,7 +107,7 @@ export default function Profile({ pubkey }) {
                 <button
                   type="button"
                   className="self-center pb-1 mt-1 text-blue-700 dark:text-carolinablue hover:opacity-90 flex items-center"
-                  onClick={console.log}
+                  // onClick={console.log}
                 >
                   <FiZap className="text-gray-700 dark:text-gray-400" />
                   <span className="text-sm font-normal ml-1">
