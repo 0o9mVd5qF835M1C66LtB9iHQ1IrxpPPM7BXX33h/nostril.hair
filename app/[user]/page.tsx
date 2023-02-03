@@ -1,31 +1,28 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import { useNostrEvents } from 'nostr-react'
+import { useState } from 'react'
 import Feed from '../../components/Feed'
+import Profile from '../../components/Profile'
 
-export default function Page() {
-  const pathname = usePathname()
+export default function Page({ params }) {
+  const [limit, setLimit] = useState(15)
 
-  const { events: postEvents } = useNostrEvents({
+  const { events, isLoading: loading } = useNostrEvents({
     filter: {
-      ids: [pathname.slice(1)],
+      authors: [params.user],
       since: 0,
       kinds: [1],
-      limit: 15
+      limit
     }
   })
 
-  const { events: userEvents } = useNostrEvents({
-    filter: {
-      authors: [pathname.slice(1)],
-      since: 0,
-      kinds: [1],
-      limit: 15
-    }
-  })
+  const sortedEvents = events.sort((a, b) => a.created_at + b.created_at)
 
-  const events = [...postEvents, ...userEvents].sort((a, b) => b.created_at - a.created_at)
-
-  return <Feed events={events} />
+  return (
+    <>
+      <Profile pubkey={params.user} />
+      <Feed events={sortedEvents} setLimit={setLimit} loading={loading} />
+    </>
+  )
 }

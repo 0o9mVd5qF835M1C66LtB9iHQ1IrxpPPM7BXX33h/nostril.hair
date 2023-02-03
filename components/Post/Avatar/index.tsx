@@ -1,7 +1,6 @@
 'use client'
 
 import { useProfile } from 'nostr-react'
-import { generateFromString } from 'generate-avatar'
 import Link from 'next/link'
 
 interface Props {
@@ -12,15 +11,29 @@ export default function Avatar({ pubkey }: Props) {
   const { data } = useProfile({ pubkey })
 
   return (
-    <Link href={pubkey} className="relative">
-      <img
-        className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90"
-        src={data?.picture || `data:image/svg+xml;utf8,${generateFromString(pubkey)}`}
-        alt="avatar"
-      />
-      {/* <span className="absolute -bottom-0.5 -right-1 rounded-tl bg-transparent px-0.5 py-px">
-        <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-cultured" aria-hidden="true" />
-      </span> */}
+    <Link href={pubkey} className="relative z-50">
+      {data?.picture ? (
+        <Link href={data.picture} className="relative" target="_blank">
+          <img
+            className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90"
+            src={data.picture}
+            alt={data.picture}
+          />
+        </Link>
+      ) : (
+        <div className="z-50">
+          <img
+            className="h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex border border-cultured z-50 bg-richblack p-2"
+            src="/logo/dark.svg"
+            alt=""
+          />
+          <img
+            className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden border border-richblack z-50 bg-cultured p-2"
+            src="/logo/light.svg"
+            alt=""
+          />
+        </div>
+      )}
     </Link>
   )
 }

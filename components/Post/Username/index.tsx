@@ -1,6 +1,5 @@
 'use client'
 
-import dayjs from 'dayjs'
 import Link from 'next/link'
 import { useProfile } from 'nostr-react'
 import { BsFillPatchCheckFill } from 'react-icons/bs'
@@ -32,16 +31,15 @@ export default function Username({ pubkey, createdAt }: Props) {
         <span className="hover:underline dark:decoration-cultured decoration-richblack font-medium text-richblack dark:text-cultured text-[15px]">
           {username}
         </span>
-        {data?.nip05 && (
-          <BsFillPatchCheckFill className="inline-flex text-carolinablue text-md ml-1 mb-px" />
-        )}
       </Link>
-      {data?.username ||
-        (data?.name && (
-          <span className="text-sm font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1">
-            {data?.username || data?.name || ''}
-          </span>
-        ))}
+      {data?.nip05 && (
+        <BsFillPatchCheckFill className="inline-flex text-carolinablue text-md ml-1 mb-px" />
+      )}
+      {(data?.username || data?.name) && (
+        <span className="text-sm font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1">
+          {data?.username || data?.name || ''}
+        </span>
+      )}
       <span className="inline-flex text-sm font-normal text-gray-700 dark:text-gray-400 self-center align-middle">
         &nbsp;· {relativeTimeUTC(createdAt)}
       </span>
@@ -52,9 +50,6 @@ export default function Username({ pubkey, createdAt }: Props) {
           </span>
         </div>
       )}
-      {/* <p className="mt-0.5 text-xs font-normal text-gray-700 dark:text-gray-400 self-center">
-        {dayjs(new Date(createdAt * 1000)).format('h:mm A | MMM D, YYYY')}
-      </p> */}
     </>
   )
 }

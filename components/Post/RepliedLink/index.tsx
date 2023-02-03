@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useProfile } from 'nostr-react'
 import { FiMessageSquare } from 'react-icons/fi'
-import { shortenID } from '../../utils'
+import { shortenID } from '../../../utils'
 
 interface Props {
   pubkey: string
