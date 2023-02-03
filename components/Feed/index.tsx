@@ -38,7 +38,7 @@ export default function Feed({ slicedEvents, allEvents, setLimit, loading, setEv
             <div className="flex justify-center">
               <button
                 type="button"
-                className="text-blue-700 dark:text-carolinablue hover:opacity-90"
+                className="text-[15px] text-blue-700 dark:text-carolinablue hover:opacity-90"
                 onClick={() => setEvents(allEvents)}
               >
                 Show {allEvents.length - slicedEvents.length} posts
