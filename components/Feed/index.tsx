@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import { Event } from 'nostr-tools'
 import { mapEvent } from '../../utils'
