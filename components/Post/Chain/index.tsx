@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function Chain({ replies }: Props) {
-  const { events: replyEvents, isLoading: loading } = useNostrEvents({
+  const { events: replyEvents } = useNostrEvents({
     filter: {
       ids: [...replies],
       since: 0,

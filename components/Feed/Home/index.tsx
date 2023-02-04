@@ -2,50 +2,42 @@
 
 import classNames from 'classnames'
 import { Event } from 'nostr-tools'
-import { mapEvent } from '../../utils'
-import ParsedText from '../ParsedText'
-import Avatar from '../Post/Avatar'
-import Username from '../Post/Username'
-import RepliedLink from '../Post/RepliedLink'
-import Chain from '../Post/Chain'
-import useInfiniteScroll from 'react-infinite-scroll-hook'
+import { mapEvent } from '../../../utils'
+import ParsedText from '../../ParsedText'
+import Avatar from '../../Post/Avatar'
+import Username from '../../Post/Username'
+import RepliedLink from '../../Post/RepliedLink'
+import Chain from '../../Post/Chain'
 import { useEffect, useState } from 'react'
+import { useNostrEvents } from 'nostr-react'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
+import debounce from 'debounce'
 
-interface Props {
-  incomingEvents: Event[]
-  loading: boolean
-  pubkey?: string
-}
+const DEFAULT_LIMIT = 6
 
-export default function Feed({ incomingEvents, loading }: Props) {
-  const [events, setEvents] = useState([])
+export default function HomeFeed({ filter }) {
+  const [events, setEvents] = useState<Event[]>([])
+  const { events: incomingEvents } = useNostrEvents({ filter })
 
   useEffect(() => {
-    if (events.length < 10) {
-      setEvents(incomingEvents.slice(0, 10))
+    if (events.length === 0 && incomingEvents.length >= DEFAULT_LIMIT) {
+      setEvents(incomingEvents.slice(0, DEFAULT_LIMIT))
     }
-  }, [incomingEvents, events])
+  }, [events.length, incomingEvents])
 
-  // const [sentryRef] = useInfiniteScroll({
-  //   loading,
-  //   hasNextPage: !loading,
-  //   onLoadMore: () => {
-  //     if (incomingEvents.length >= 10) {
-  //       setEvents([
-  //         ...events,
-  //         ...incomingEvents
-  //           .slice(incomingEvents.length - 10, incomingEvents.length)
-  //           .sort((a, b) => a.created_at - b.created_at)
-  //       ])
-  //     }
-  //   },
-  //   rootMargin: '0px 0px 50px 0px'
-  // })
+  const [sentryRef] = useInfiniteScroll({
+    loading: false,
+    hasNextPage: true,
+    onLoadMore: () => {
+      debounce(setEvents(incomingEvents.slice(0, events.length + DEFAULT_LIMIT)), 1000)
+    },
+    rootMargin: '0px 0px 50px 0px'
+  })
 
   return (
-    <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
+    <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen scroll-smooth overflow-scroll">
       <ul className="scroll-smooth bg-opacity-100">
-        {incomingEvents.length > events.length && (
+        {events.length >= DEFAULT_LIMIT && events.length < incomingEvents.length && (
           <li className="border-0 border-b dark:border-gray-700 py-6 bg-opacity-100">
             <div className="flex justify-center">
               <button
@@ -95,8 +87,11 @@ export default function Feed({ incomingEvents, loading }: Props) {
           )
         })}
         <div
-          // ref={sentryRef}
-          className="flex justify-center items-center border-t dark:border-t-gray-700 py-8"
+          ref={sentryRef}
+          className={classNames(
+            'flex justify-center items-center border-t dark:border-t-gray-700 py-8',
+            events.length === 0 && 'border-none'
+          )}
         >
           <div className="h-3 w-3 rounded-full animate-pulse dark:bg-carolinablue bg-tallships" />
         </div>

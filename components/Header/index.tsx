@@ -1,7 +1,18 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FiHome, FiLogIn, FiLogOut, FiMoon, FiSettings, FiSun, FiUser } from 'react-icons/fi'
+import {
+  FiCoffee,
+  FiHash,
+  FiHome,
+  FiLogIn,
+  FiLogOut,
+  FiMail,
+  FiMoon,
+  FiSettings,
+  FiSun,
+  FiUser
+} from 'react-icons/fi'
 import { useAppContext } from '../../context/AppContext'
 
 export default function Header() {
@@ -54,6 +65,22 @@ export default function Header() {
               <FiHome />
             </Link>
           </div>
+          <div className="flex justify-center mt-3">
+            <Link
+              href="/explore"
+              className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
+            >
+              <FiHash />
+            </Link>
+          </div>
+          <div className="flex justify-center mt-3">
+            <Link
+              href="/messages"
+              className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
+            >
+              <FiMail />
+            </Link>
+          </div>
           <div className="flex justify-center">
             <button
               type="button"
@@ -83,6 +110,14 @@ export default function Header() {
               </Link>
             </div>
           )}
+          <div className="flex justify-center mt-3">
+            <Link
+              href="/support"
+              className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
+            >
+              <FiCoffee />
+            </Link>
+          </div>
           {!privkey ? (
             <div className="flex justify-center">
               <Link
