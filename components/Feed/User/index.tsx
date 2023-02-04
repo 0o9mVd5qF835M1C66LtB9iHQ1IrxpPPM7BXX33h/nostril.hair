@@ -17,7 +17,7 @@ const DEFAULT_LIMIT = 6
 
 export default function UserFeed({ filter }) {
   const [events, setEvents] = useState<Event[]>([])
-  const { events: incomingEvents } = useNostrEvents({ filter })
+  const { events: incomingEvents, isLoading: loading } = useNostrEvents({ filter })
 
   useEffect(() => {
     if (events.length === 0 && incomingEvents.length >= DEFAULT_LIMIT) {
@@ -26,7 +26,7 @@ export default function UserFeed({ filter }) {
   }, [events.length, incomingEvents])
 
   const [sentryRef] = useInfiniteScroll({
-    loading: false,
+    loading,
     hasNextPage: true,
     onLoadMore: () => {
       debounce(setEvents(incomingEvents.slice(0, events.length + DEFAULT_LIMIT)), 1000)
