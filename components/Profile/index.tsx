@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useProfile } from 'nostr-react'
@@ -33,23 +34,32 @@ export default function Profile({ pubkey }: Props) {
           <div className="flex flex-row w-full">
             {data?.picture ? (
               <Link href={data.picture} className="relative" target="_blank">
-                <img
+                <Image
                   className="flex h-32 w-32 items-center justify-center rounded-full hover:opacity-90"
                   src={data.picture}
                   alt={data.picture}
+                  height={128}
+                  width={128}
+                  unoptimized
                 />
               </Link>
             ) : (
               <div>
-                <img
+                <Image
                   className="h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex p-2 bg-nero"
                   src="/logo/dark.svg"
                   alt=""
+                  height={128}
+                  width={128}
+                  unoptimized
                 />
-                <img
+                <Image
                   className="flex h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden p-2 bg-gray-200"
                   src="/logo/light.svg"
                   alt=""
+                  height={128}
+                  width={128}
+                  unoptimized
                 />
               </div>
             )}

@@ -72,6 +72,7 @@ export const mapEvent = (content: string, tags: string[][]) => {
     replies: [],
     mentions: []
   }
+
   // eslint-disable-next-line no-param-reassign
   content = String(content).trim()
   if (content === '') {

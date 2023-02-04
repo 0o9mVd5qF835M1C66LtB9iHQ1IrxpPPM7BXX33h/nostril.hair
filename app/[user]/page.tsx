@@ -1,5 +1,6 @@
 'use client'
 
+import dayjs from 'dayjs'
 import { useSearchParams } from 'next/navigation'
 import Feed from '../../components/Feed'
 import Profile from '../../components/Profile'
@@ -13,8 +14,8 @@ export default function Page({ params }) {
   const filter = {
     authors: [params.user],
     since: 0,
-    kinds: [1],
-    limit: 1
+    until: dayjs().unix(),
+    kinds: [1]
   }
 
   return (

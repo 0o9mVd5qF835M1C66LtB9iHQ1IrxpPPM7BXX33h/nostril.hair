@@ -31,6 +31,7 @@ export default function Header() {
                 width={48}
                 alt="logo"
                 className="hidden sm:block"
+                unoptimized
               />
               <Image
                 src="/logo/light.svg"
@@ -38,6 +39,7 @@ export default function Header() {
                 width={40}
                 alt="logo"
                 className="block sm:hidden"
+                unoptimized
               />
             </Link>
             <Link href="/" className="items-center hidden dark:block">
@@ -47,6 +49,7 @@ export default function Header() {
                 width={48}
                 alt="logo"
                 className="hidden sm:block"
+                unoptimized
               />
               <Image
                 src="/logo/dark.svg"
@@ -54,6 +57,7 @@ export default function Header() {
                 width={40}
                 alt="logo"
                 className="block sm:hidden"
+                unoptimized
               />
             </Link>
           </div>
