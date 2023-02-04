@@ -109,7 +109,7 @@ export default function Profile({ pubkey }: Props) {
                   // onClick={console.log}
                 >
                   <FiZap className="text-gray-700 dark:text-gray-400" />
-                  <span className="text-sm font-normal ml-1">
+                  <span className="text-sm font-normal ml-1 max-w-xs truncate">
                     {data?.lud16 || shortenID(data?.lud06)}
                   </span>
                 </button>

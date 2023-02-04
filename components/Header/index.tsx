@@ -93,7 +93,7 @@ export default function Header() {
           {!!privkey && (
             <div className="flex justify-center">
               <Link
-                href={`/user?pubkey=${pubkey}`}
+                href={`/${pubkey}`}
                 className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
               >
                 <FiUser />

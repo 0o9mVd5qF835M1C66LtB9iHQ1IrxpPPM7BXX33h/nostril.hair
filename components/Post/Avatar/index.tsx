@@ -11,7 +11,7 @@ export default function Avatar({ pubkey }: Props) {
   const { data } = useProfile({ pubkey })
 
   return (
-    <Link href={`/user?pubkey=${pubkey}`} className="relative z-50">
+    <Link href={`/${pubkey}`} className="relative z-50">
       {data?.picture ? (
         <Link href={data.picture} className="relative" target="_blank">
           <img

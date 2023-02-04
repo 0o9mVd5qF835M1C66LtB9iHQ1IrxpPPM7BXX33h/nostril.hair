@@ -5,11 +5,14 @@ import { useSearchParams } from 'next/navigation'
 import UserFeed from '../../components/Feed/User'
 import Profile from '../../components/Profile'
 
-export default function Page() {
-  const params = useSearchParams()
+export const dynamic = 'force-static'
+export const dynamicParams = true
+
+export default function Page({ params }) {
+  useSearchParams()
 
   const filter = {
-    authors: [params.get('pubkey')],
+    authors: [params.user],
     until: dayjs().unix(),
     kinds: [1],
     limit: 1
@@ -17,7 +20,7 @@ export default function Page() {
 
   return (
     <>
-      <Profile pubkey={params.get('pubkey')} />
+      <Profile pubkey={params.user} />
       <UserFeed filter={filter} />
     </>
   )

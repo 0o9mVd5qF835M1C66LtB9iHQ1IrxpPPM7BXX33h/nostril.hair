@@ -23,7 +23,7 @@ export default function RepliedLink({ pubkey }: Props) {
   }
 
   return (
-    <Link href={`/user?pubkey=${pubkey}`} className="ml-[2.65rem] flex">
+    <Link href={`/${pubkey}`} className="ml-[2.65rem] flex">
       <div className="flex items-center">
         <FiMessageSquare className="mr-1 font-bold text-gray-700 dark:text-gray-400 text-sm" />
         <span className="hover:underline dark:decoration-gray-400 decoration-gray-700 font-medium text-gray-700 dark:text-gray-400 text-sm">
