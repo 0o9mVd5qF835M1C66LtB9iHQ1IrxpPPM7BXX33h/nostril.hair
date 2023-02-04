@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import HomeFeed from '../components/Feed/Home'
+import Feed from '../components/Feed'
 
 export default function Page() {
   const filter = {
@@ -9,5 +9,5 @@ export default function Page() {
     limit: 1
   }
 
-  return <HomeFeed filter={filter} />
+  return <Feed filter={filter} />
 }

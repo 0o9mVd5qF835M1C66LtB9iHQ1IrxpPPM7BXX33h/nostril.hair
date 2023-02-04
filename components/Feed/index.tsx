@@ -2,12 +2,12 @@
 
 import classNames from 'classnames'
 import { Event } from 'nostr-tools'
-import { mapEvent } from '../../../utils'
-import ParsedText from '../../ParsedText'
-import Avatar from '../../Post/Avatar'
-import Username from '../../Post/Username'
-import RepliedLink from '../../Post/RepliedLink'
-import Chain from '../../Post/Chain'
+import { mapEvent } from '../../utils'
+import ParsedText from '../ParsedText'
+import Avatar from '../Post/Avatar'
+import Username from '../Post/Username'
+import RepliedLink from '../Post/RepliedLink'
+import Chain from '../Post/Chain'
 import { useEffect, useState } from 'react'
 import { useNostrEvents } from 'nostr-react'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
@@ -15,7 +15,7 @@ import debounce from 'debounce'
 
 const DEFAULT_LIMIT = 6
 
-export default function UserFeed({ filter }) {
+export default function HomeFeed({ filter }) {
   const [events, setEvents] = useState<Event[]>([])
   const { events: incomingEvents, isLoading: loading } = useNostrEvents({ filter })
 
@@ -29,7 +29,7 @@ export default function UserFeed({ filter }) {
     loading,
     hasNextPage: true,
     onLoadMore: () => {
-      debounce(setEvents(incomingEvents.slice(0, events.length + DEFAULT_LIMIT)), 1000)
+      debounce(() => setEvents(incomingEvents.slice(0, events.length + DEFAULT_LIMIT)), 1000)
     },
     rootMargin: '0px 0px 50px 0px'
   })
@@ -37,6 +37,19 @@ export default function UserFeed({ filter }) {
   return (
     <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
       <ul className="scroll-smooth bg-opacity-100">
+        {events.length >= DEFAULT_LIMIT && events.length < incomingEvents.length && (
+          <li className="border-0 border-b dark:border-gray-700 py-6 bg-opacity-100">
+            <div className="flex justify-center">
+              <button
+                type="button"
+                className="text-[15px] text-blue-700 dark:text-carolinablue hover:opacity-90"
+                onClick={() => setEvents(incomingEvents)}
+              >
+                Show {incomingEvents.length - events.length} posts
+              </button>
+            </div>
+          </li>
+        )}
         {events.map((event: Event, eventIndex: number) => {
           const mappedEvent = mapEvent(event.content, event.tags)
           return (
@@ -73,7 +86,7 @@ export default function UserFeed({ filter }) {
             </li>
           )
         })}
-        <li
+        <div
           ref={sentryRef}
           className={classNames(
             'flex justify-center items-center border-t dark:border-t-gray-700 py-8',
@@ -81,7 +94,7 @@ export default function UserFeed({ filter }) {
           )}
         >
           <div className="h-3 w-3 rounded-full animate-pulse dark:bg-carolinablue bg-tallships" />
-        </li>
+        </div>
       </ul>
     </div>
   )

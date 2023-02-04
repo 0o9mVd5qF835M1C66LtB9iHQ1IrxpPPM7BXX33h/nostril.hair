@@ -1,8 +1,7 @@
 'use client'
 
-import dayjs from 'dayjs'
 import { useSearchParams } from 'next/navigation'
-import UserFeed from '../../components/Feed/User'
+import Feed from '../../components/Feed'
 import Profile from '../../components/Profile'
 
 export const dynamic = 'force-static'
@@ -13,7 +12,7 @@ export default function Page({ params }) {
 
   const filter = {
     authors: [params.user],
-    until: dayjs().unix(),
+    since: 0,
     kinds: [1],
     limit: 1
   }
@@ -21,7 +20,7 @@ export default function Page({ params }) {
   return (
     <>
       <Profile pubkey={params.user} />
-      <UserFeed filter={filter} />
+      <Feed filter={filter} />
     </>
   )
 }
