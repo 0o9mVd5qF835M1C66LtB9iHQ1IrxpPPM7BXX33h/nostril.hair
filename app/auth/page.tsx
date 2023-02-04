@@ -14,8 +14,8 @@ export default function Page() {
 
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
-      <div className="flex min-h-full items-center justify-center py-9 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+      <div className="flex min-h-full items-center justify-center py-9 px-4">
+        <div className="w-full space-y-8">
           <div>
             <h3 className="text-lg font-medium leading-6 text-richblack dark:text-cultured">
               Account Sign In

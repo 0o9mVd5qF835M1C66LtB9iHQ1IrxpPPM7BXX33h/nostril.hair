@@ -16,6 +16,7 @@ module.exports = {
     }),
     extend: {
       colors: {
+        guyabano: '#F8F8F8',
         cultured: '#F9FAFB',
         mintcream: '#F5FFFA',
         quicksilver: '#A8A29E',
@@ -25,6 +26,7 @@ module.exports = {
         tallships: '#0B7BC1',
         lapislazuli: '#175982',
         richblack: '#111111',
+        codgray: '#121212',
         nero: '#222222'
       }
     }

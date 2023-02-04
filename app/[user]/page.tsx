@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import Feed from '../../components/Feed'
+import HomeFeed from '../../components/Feed/HomeFeed'
 import Profile from '../../components/Profile'
 
 export const dynamic = 'force-static'
@@ -19,7 +19,7 @@ export default function Page({ params }) {
   return (
     <>
       <Profile pubkey={params.user} />
-      <Feed filter={filter} />
+      <HomeFeed filter={filter} isProfilePage />
     </>
   )
 }

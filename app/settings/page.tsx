@@ -30,8 +30,8 @@ export default function Page() {
 
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
-      <div className="flex min-h-full items-center justify-center py-9 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+      <div className="flex min-h-full items-center justify-center py-9 px-4">
+        <div className="w-full space-y-8">
           <form className="space-y-8 divide-y divide-gray-200">
             <div className="space-y-8 divide-y divide-gray-200">
               <div>

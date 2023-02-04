@@ -14,7 +14,7 @@ export default function Reply({ event }: Props) {
   const { data: metadata } = useProfile({ pubkey: event.pubkey })
 
   return (
-    <li key={event.id} className="mb-9">
+    <div key={event.id} className="mb-9">
       <div className="relative">
         <span
           className="absolute top-9 left-[23px] h-full w-[0.093rem] bg-gray-400 dark:bg-gray-500"
@@ -34,6 +34,6 @@ export default function Reply({ event }: Props) {
           </div>
         </div>
       </div>
-    </li>
+    </div>
   )
 }

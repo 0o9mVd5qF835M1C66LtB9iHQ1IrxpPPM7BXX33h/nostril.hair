@@ -678,6 +678,11 @@ debug@^4.1.1, debug@^4.3.2, debug@^4.3.4:
   dependencies:
     ms "2.1.2"
 
+dedupe@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/dedupe/-/dedupe-4.0.2.tgz#ec1c0e0a6ec08b14640536dfe234ee933819e6a3"
+  integrity sha512-HTltbEJKZtOXA9RsABS5Q+sbS3dwHKEyCk2vkZSxh5q2bsH/tBOT6Bo/Y37OkrUUABeYLfuojhuZceSVtqXRpw==
+
 deep-equal@^2.0.5:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-2.2.0.tgz#5caeace9c781028b9ff459f33b779346637c43e6"
