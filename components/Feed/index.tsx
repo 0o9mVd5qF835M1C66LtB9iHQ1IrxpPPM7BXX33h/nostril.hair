@@ -2,23 +2,23 @@
 
 import classNames from 'classnames'
 import { Event } from 'nostr-tools'
-import { mapEvent } from '../../utils'
-import ParsedText from '../ParsedText'
-import Avatar from '../Post/Avatar'
-import Username from '../Post/Username'
-import RepliedLink from '../Post/RepliedLink'
-import Chain from '../Post/Chain'
 import { useEffect, useState } from 'react'
 import { useNostrEvents } from 'nostr-react'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { useDebouncedCallback } from 'use-debounce'
+import Post from '../Post'
 
 const DEFAULT_LIMIT = 6
 
 export default function HomeFeed({ filter }) {
   const [events, setEvents] = useState<Event[]>([])
-  const debouncedSetEvents = useDebouncedCallback((value) => setEvents(value), 250)
+  const debouncedSetEvents = useDebouncedCallback((value) => setEvents(value), 250, {
+    leading: true
+  })
   const { events: incomingEvents, isLoading: loading } = useNostrEvents({ filter })
+
+  const hiddenPostsCount = incomingEvents.length - events.length
+  const postsText = hiddenPostsCount === 1 ? 'post' : 'posts'
 
   useEffect(() => {
     if (events.length < DEFAULT_LIMIT) {
@@ -46,45 +46,14 @@ export default function HomeFeed({ filter }) {
                 className="text-[15px] text-blue-700 dark:text-carolinablue hover:opacity-90"
                 onClick={() => setEvents(incomingEvents)}
               >
-                Show {incomingEvents.length - events.length} posts
+                {`Show ${hiddenPostsCount} ${postsText}`}
               </button>
             </div>
           </li>
         )}
-        {events.map((event: Event, eventIndex: number) => {
-          const mappedEvent = mapEvent(event.content, event.tags)
-          return (
-            <li
-              key={Math.random()}
-              className={classNames(
-                'border-0 border-t dark:border-gray-700 px-4 py-6',
-                eventIndex === 0 && 'border-none'
-              )}
-            >
-              {mappedEvent.replies.length > 0 && (
-                <div className="mb-2">
-                  <RepliedLink pubkey={event.pubkey} />
-                </div>
-              )}
-              {mappedEvent.replies.length > 0 && (
-                <div className="relative">
-                  <Chain replies={mappedEvent.replies} />
-                </div>
-              )}
-              <div className="relative flex items-start space-x-3">
-                <Avatar pubkey={event.pubkey} />
-                <div className="min-w-0 flex-1">
-                  <Username pubkey={event.pubkey} createdAt={event.created_at} />
-                  <div className="mt-2 text-sm text-richblack dark:text-cultured font-normal">
-                    <div className="break-words">
-                      <ParsedText content={mappedEvent.content} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          )
-        })}
+        {events.map((event: Event, eventIndex: number) => (
+          <Post key={event.id} event={event} eventIndex={eventIndex} />
+        ))}
         <div
           ref={sentryRef}
           className={classNames(

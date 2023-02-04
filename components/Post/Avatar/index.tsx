@@ -1,29 +1,28 @@
 'use client'
 
-import { useProfile } from 'nostr-react'
+import { Metadata } from 'nostr-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
 interface Props {
   pubkey: string
+  metadata: Metadata
 }
 
-export default function Avatar({ pubkey }: Props) {
-  const { data } = useProfile({ pubkey })
-
+export default function Avatar({ pubkey, metadata }: Props) {
   return (
     <Link href={`/${pubkey}`}>
-      {data?.picture ? (
+      {metadata?.picture ? (
         <Image
           className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90"
-          src={data.picture}
-          alt={data.picture}
+          src={metadata.picture}
+          alt={metadata.picture}
           height={48}
           width={48}
           unoptimized
           quality={1}
           placeholder="blur"
-          blurDataURL={data.picture}
+          blurDataURL={metadata.picture}
         />
       ) : (
         <>
