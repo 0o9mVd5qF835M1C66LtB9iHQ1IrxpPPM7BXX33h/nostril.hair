@@ -11,25 +11,26 @@ import Chain from '../Post/Chain'
 import { useEffect, useState } from 'react'
 import { useNostrEvents } from 'nostr-react'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
-import debounce from 'debounce'
+import { useDebouncedCallback } from 'use-debounce'
 
 const DEFAULT_LIMIT = 6
 
 export default function HomeFeed({ filter }) {
   const [events, setEvents] = useState<Event[]>([])
+  const debouncedSetEvents = useDebouncedCallback((value) => setEvents(value), 250)
   const { events: incomingEvents, isLoading: loading } = useNostrEvents({ filter })
 
   useEffect(() => {
-    if (events.length === 0 && incomingEvents.length >= DEFAULT_LIMIT) {
-      setEvents(incomingEvents.slice(0, DEFAULT_LIMIT))
+    if (events.length < DEFAULT_LIMIT) {
+      debouncedSetEvents(incomingEvents.slice(0, DEFAULT_LIMIT))
     }
-  }, [events.length, incomingEvents])
+  }, [debouncedSetEvents, events.length, incomingEvents])
 
   const [sentryRef] = useInfiniteScroll({
     loading,
     hasNextPage: true,
     onLoadMore: () => {
-      debounce(() => setEvents(incomingEvents.slice(0, events.length + DEFAULT_LIMIT)), 1000)
+      debouncedSetEvents(incomingEvents.slice(0, events.length + DEFAULT_LIMIT))
     },
     rootMargin: '0px 0px 50px 0px'
   })
@@ -73,9 +74,7 @@ export default function HomeFeed({ filter }) {
               <div className="relative flex items-start space-x-3">
                 <Avatar pubkey={event.pubkey} />
                 <div className="min-w-0 flex-1">
-                  <div>
-                    <Username pubkey={event.pubkey} createdAt={event.created_at} />
-                  </div>
+                  <Username pubkey={event.pubkey} createdAt={event.created_at} />
                   <div className="mt-2 text-sm text-richblack dark:text-cultured font-normal">
                     <div className="break-words">
                       <ParsedText content={mappedEvent.content} />

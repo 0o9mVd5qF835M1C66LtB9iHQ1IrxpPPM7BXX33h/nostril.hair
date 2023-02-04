@@ -16,16 +16,9 @@ interface Props {
 }
 
 export default function Profile({ pubkey }: Props) {
-  const [hasData, setHasData] = useState(false)
   const { push } = useRouter()
   const { privkey, pubkey: sessionPubkey } = useAppContext()
-  const { data } = useProfile({ pubkey, enabled: !hasData })
-
-  useEffect(() => {
-    if (Object.keys(data || {}).length > 0) {
-      setHasData(true)
-    }
-  }, [data])
+  const { data } = useProfile({ pubkey })
 
   return (
     <div className="border-l border-r border-b dark:border-gray-700">
@@ -75,17 +68,19 @@ export default function Profile({ pubkey }: Props) {
             )}
           </div>
           <div className="mt-6">
-            <span className="font-medium text-richblack dark:text-cultured text-xl max-w-prose truncate">
-              {data?.display_name || shortenID(pubkey)}
-            </span>
-            {hasData && data?.nip05 && (
-              <BsFillPatchCheckFill className="inline-flex text-carolinablue text-lg ml-1 mb-2" />
-            )}
-            {(data?.username || data?.name) && (
-              <span className="text-md font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1 max-w-prose truncate">
-                {data?.username || data?.name || ''}
-              </span>
-            )}
+            <div className="flex flex-row items-center">
+              <div className="font-medium text-richblack dark:text-cultured text-xl max-w-prose truncate">
+                {data?.display_name || shortenID(pubkey)}
+              </div>
+              {data?.nip05 && (
+                <BsFillPatchCheckFill className="inline-flex text-carolinablue text-lg ml-1" />
+              )}
+              {data?.name && (
+                <span className="text-md font-normal text-gray-700 dark:text-gray-400 self-center hidden sm:inline-flex ml-1 max-w-prose truncate">
+                  @{data.name}
+                </span>
+              )}
+            </div>
             <div>
               {data?.nip05 && (
                 <div className="items-center align-middle self-center pb-1 -mt-1 max-w-prose truncate">

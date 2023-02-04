@@ -19,7 +19,7 @@ export default function Chain({ replies }: Props) {
     }
   })
 
-  const [loading] = useDebounce(isLoading, 1000)
+  const [loading] = useDebounce(isLoading, 2500)
 
   return (
     <ul className="flow-root">

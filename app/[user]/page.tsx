@@ -1,6 +1,5 @@
 'use client'
 
-import dayjs from 'dayjs'
 import { useSearchParams } from 'next/navigation'
 import Feed from '../../components/Feed'
 import Profile from '../../components/Profile'
