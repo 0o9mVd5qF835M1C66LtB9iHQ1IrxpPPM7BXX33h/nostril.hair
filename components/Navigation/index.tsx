@@ -15,7 +15,7 @@ import {
 } from 'react-icons/fi'
 import { useAppContext } from '../../context/AppContext'
 
-export default function Header() {
+export default function Navigation() {
   const { resolvedTheme, setTheme } = useTheme()
   const { privkey, setPrivkey, pubkey } = useAppContext()
 
@@ -32,6 +32,7 @@ export default function Header() {
                 alt="logo"
                 className="hidden sm:block"
                 unoptimized
+                quality={1}
               />
               <Image
                 src="/logo/light.svg"
@@ -40,6 +41,7 @@ export default function Header() {
                 alt="logo"
                 className="block sm:hidden"
                 unoptimized
+                quality={1}
               />
             </Link>
             <Link href="/" className="items-center hidden dark:block">
@@ -50,6 +52,7 @@ export default function Header() {
                 alt="logo"
                 className="hidden sm:block"
                 unoptimized
+                quality={1}
               />
               <Image
                 src="/logo/dark.svg"
@@ -58,6 +61,7 @@ export default function Header() {
                 alt="logo"
                 className="block sm:hidden"
                 unoptimized
+                quality={1}
               />
             </Link>
           </div>

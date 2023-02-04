@@ -14,7 +14,6 @@ export default function Page({ params }) {
   const filter = {
     authors: [params.user],
     since: 0,
-    until: dayjs().unix(),
     kinds: [1]
   }
 

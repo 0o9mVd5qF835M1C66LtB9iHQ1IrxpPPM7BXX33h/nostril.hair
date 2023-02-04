@@ -12,20 +12,21 @@ export default function Avatar({ pubkey }: Props) {
   const { data } = useProfile({ pubkey })
 
   return (
-    <Link href={`/${pubkey}`} className="relative z-50">
+    <Link href={`/${pubkey}`}>
       {data?.picture ? (
-        <Link href={data.picture} className="relative" target="_blank">
-          <Image
-            className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90"
-            src={data.picture}
-            alt={data.picture}
-            height={48}
-            width={48}
-            unoptimized
-          />
-        </Link>
+        <Image
+          className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90"
+          src={data.picture}
+          alt={data.picture}
+          height={48}
+          width={48}
+          unoptimized
+          quality={1}
+          placeholder="blur"
+          blurDataURL={data.picture}
+        />
       ) : (
-        <div className="z-50">
+        <>
           <Image
             className="h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer hidden dark:flex bg-nero p-2"
             src="/logo/dark.svg"
@@ -33,6 +34,7 @@ export default function Avatar({ pubkey }: Props) {
             height={48}
             width={48}
             unoptimized
+            quality={1}
           />
           <Image
             className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden bg-gray-200 p-2"
@@ -41,8 +43,9 @@ export default function Avatar({ pubkey }: Props) {
             height={48}
             width={48}
             unoptimized
+            quality={1}
           />
-        </div>
+        </>
       )}
     </Link>
   )

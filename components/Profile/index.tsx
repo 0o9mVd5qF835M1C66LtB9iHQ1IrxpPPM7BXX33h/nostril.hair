@@ -41,6 +41,9 @@ export default function Profile({ pubkey }: Props) {
                   height={128}
                   width={128}
                   unoptimized
+                  quality={1}
+                  placeholder="blur"
+                  blurDataURL={data.picture}
                 />
               </Link>
             ) : (
@@ -52,6 +55,7 @@ export default function Profile({ pubkey }: Props) {
                   height={128}
                   width={128}
                   unoptimized
+                  quality={1}
                 />
                 <Image
                   className="flex h-32 w-32 items-center justify-center rounded-full hover:opacity-90 cursor-pointer dark:hidden p-2 bg-gray-200"
@@ -60,6 +64,7 @@ export default function Profile({ pubkey }: Props) {
                   height={128}
                   width={128}
                   unoptimized
+                  quality={1}
                 />
               </div>
             )}

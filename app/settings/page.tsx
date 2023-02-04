@@ -44,7 +44,7 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                  <div className="sm:col-span-4">
+                  <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label
                       htmlFor="username"
@@ -64,7 +64,7 @@ export default function Page() {
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-4">
+                  <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label
                       htmlFor="displayName"
@@ -84,7 +84,7 @@ export default function Page() {
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-4">
+                  <div className="sm:col-span-6">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label
                       htmlFor="website"
@@ -148,7 +148,7 @@ export default function Page() {
                       htmlFor="banner"
                       className="block text-sm font-medium text-richblack dark:text-cultured"
                     >
-                      Profile Banner
+                      Lightning URL
                     </label>
                     <div className="mt-1">
                       <input
@@ -156,7 +156,27 @@ export default function Page() {
                         name="banner"
                         id="banner"
                         spellCheck="false"
-                        value={data?.banner || ''}
+                        value={data?.lud16 || ''}
+                        className="rounded-lg sm:text-sm block w-full text-richblack dark:text-slate-200 focus:ring-px bg-white border border-gray-200 dark:border-gray-900 focus:ring-carolinablue focus:border-carolinablue dark:focus:ring-tallships dark:focus:border-tallships dark:bg-nero"
+                        onChange={(e) => setValue(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-6">
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label
+                      htmlFor="banner"
+                      className="block text-sm font-medium text-richblack dark:text-cultured"
+                    >
+                      Lightning Address
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="banner"
+                        id="banner"
+                        spellCheck="false"
+                        value={data?.lud06 || ''}
                         className="rounded-lg sm:text-sm block w-full text-richblack dark:text-slate-200 focus:ring-px bg-white border border-gray-200 dark:border-gray-900 focus:ring-carolinablue focus:border-carolinablue dark:focus:ring-tallships dark:focus:border-tallships dark:bg-nero"
                         onChange={(e) => setValue(e.target.value)}
                       />
