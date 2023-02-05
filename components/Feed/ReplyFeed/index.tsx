@@ -6,7 +6,6 @@ import { useNostrEvents } from 'nostr-react'
 import { useDebouncedCallback } from 'use-debounce'
 import Post from '../../Post'
 import SendReply from '../SendReply'
-import { useAppContext } from '../../../context/AppContext'
 
 const DEFAULT_LIMIT = 1
 
@@ -17,9 +16,8 @@ interface Props {
   post: string
 }
 
-export default function ReplyFeed({ filter, isProfilePage = false, user, post }: Props) {
+export default function ReplyFeed({ filter, user, post }: Props) {
   const [events, setEvents] = useState<Event[]>([])
-  const { privkey } = useAppContext()
   const debouncedSetEvents = useDebouncedCallback((value) => setEvents(value), 1000, {
     leading: true
   })
@@ -39,18 +37,11 @@ export default function ReplyFeed({ filter, isProfilePage = false, user, post }:
         {incomingEvents
           .sort((a, b) => b.created_at - a.created_at)
           .map((event: Event, eventIndex: number) => (
-            <Post
-              key={event.id}
-              event={event}
-              eventIndex={eventIndex}
-              length={incomingEvents.length}
-            />
+            <Post key={event.id} event={event} eventIndex={eventIndex} />
           ))}
-        {!!privkey && (
-          <div className="border-b dark:border-b-gray-700 px-4">
-            <SendReply user={user} post={post} />
-          </div>
-        )}
+        <div className="border-b dark:border-b-gray-700 px-4">
+          <SendReply user={user} post={post} />
+        </div>
       </ul>
     </div>
   )

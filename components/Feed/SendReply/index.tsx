@@ -13,26 +13,51 @@ interface Props {
   post: string
 }
 
-export default function SendReply({ user, post }: Props) {
+export default function SendReply({ post }: Props) {
   const [value, setValue] = useState('')
-  const { privkey, pubkey } = useAppContext()
+  const { privkey, pubkey, provider } = useAppContext()
   const { data: metadata } = useProfile({ pubkey })
   const { publish } = useNostr()
 
   const handlePost = async () => {
-    const event: Event = {
-      content: value,
-      kind: 1,
-      tags: [['e', post, 'wss://relay.damus.io', 'root']],
-      created_at: dayjs().unix(),
-      pubkey: getPublicKey(privkey)
+    try {
+      if (provider === 'local') {
+        const event: Event = {
+          content: value,
+          kind: 1,
+          tags: [['e', post, 'wss://relay.damus.io', 'root']],
+          created_at: dayjs().unix(),
+          pubkey: getPublicKey(privkey)
+        }
+
+        event.id = getEventHash(event)
+        event.sig = signEvent(event, privkey)
+
+        publish(event)
+        setValue('')
+      } else if (provider.includes('nos2x'.toLocaleLowerCase())) {
+        const event: Event = {
+          content: value,
+          kind: 1,
+          tags: [['e', post, 'wss://relay.damus.io', 'root']],
+          created_at: dayjs().unix(),
+          pubkey
+        }
+
+        event.id = getEventHash(event)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const message = await window?.nostr.signEvent(event)
+        event.sig = message.sig
+
+        publish(event)
+        setValue('')
+      } else {
+        /* empty */
+      }
+    } catch {
+      /* empty */
     }
-
-    event.id = getEventHash(event)
-    event.sig = signEvent(event, privkey)
-
-    publish(event)
-    setValue('')
   }
 
   return (
@@ -56,7 +81,7 @@ export default function SendReply({ user, post }: Props) {
                   <InfoButton
                     text="Reply"
                     onClick={handlePost}
-                    disabled={value.length === 0 || value.length > 240}
+                    disabled={!provider || !pubkey || value.length === 0 || value.length > 240}
                   />
                 </div>
               </div>

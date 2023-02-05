@@ -28,7 +28,8 @@
     "react-icons": "^4.7.1",
     "react-infinite-scroll-hook": "^4.0.4",
     "swr": "^2.0.3",
-    "use-debounce": "^9.0.3"
+    "use-debounce": "^9.0.3",
+    "webln": "^0.3.2"
   },
   "devDependencies": {
     "@types/debounce": "^1.2.1",

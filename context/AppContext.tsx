@@ -5,6 +5,8 @@ interface Context {
   setPrivkey: (_privKey: string) => void
   pubkey: string
   setPubkey: (_pubkey: string) => void
+  provider: string
+  setProvider: (_provider: string) => void
 }
 
 const AppContext = createContext({} as Context)
@@ -12,15 +14,18 @@ const AppContext = createContext({} as Context)
 export default function AppProvider({ children }: { children: React.ReactNode }) {
   const [privkey, setPrivkey] = useState<string>('')
   const [pubkey, setPubkey] = useState<string>('')
+  const [provider, setProvider] = useState<string>('')
 
   const value = useMemo(
     () => ({
       privkey,
       setPrivkey,
       pubkey,
-      setPubkey
+      setPubkey,
+      provider,
+      setProvider
     }),
-    [privkey, pubkey]
+    [privkey, provider, pubkey]
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

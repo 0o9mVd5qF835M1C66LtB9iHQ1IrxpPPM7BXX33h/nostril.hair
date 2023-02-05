@@ -9,23 +9,48 @@ import InfoButton from '../../Button/Info'
 
 export default function SendPost() {
   const [value, setValue] = useState('')
-  const { privkey } = useAppContext()
+  const { privkey, provider, pubkey } = useAppContext()
   const { publish } = useNostr()
 
   const handlePost = async () => {
-    const event: Event = {
-      content: value,
-      kind: 1,
-      tags: [],
-      created_at: dayjs().unix(),
-      pubkey: getPublicKey(privkey)
+    try {
+      if (provider === 'local') {
+        const event: Event = {
+          content: value,
+          kind: 1,
+          tags: [],
+          created_at: dayjs().unix(),
+          pubkey: getPublicKey(privkey)
+        }
+
+        event.id = getEventHash(event)
+        event.sig = signEvent(event, privkey)
+
+        publish(event)
+        setValue('')
+      } else if (provider.includes('nos2x'.toLocaleLowerCase())) {
+        const event: Event = {
+          content: value,
+          kind: 1,
+          tags: [],
+          created_at: dayjs().unix(),
+          pubkey
+        }
+
+        event.id = getEventHash(event)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const message = await window?.nostr.signEvent(event)
+        event.sig = message.sig
+
+        publish(event)
+        setValue('')
+      } else {
+        /* empty */
+      }
+    } catch {
+      /* empty */
     }
-
-    event.id = getEventHash(event)
-    event.sig = signEvent(event, privkey)
-
-    publish(event)
-    setValue('')
   }
 
   return (
@@ -48,7 +73,7 @@ export default function SendPost() {
                   <InfoButton
                     text="Post"
                     onClick={handlePost}
-                    disabled={value.length === 0 || value.length > 240}
+                    disabled={!provider || !pubkey || value.length === 0 || value.length > 240}
                   />
                 </div>
               </div>

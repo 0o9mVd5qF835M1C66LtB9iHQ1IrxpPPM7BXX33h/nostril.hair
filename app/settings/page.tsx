@@ -1,7 +1,6 @@
 'use client'
 
 import { useProfile } from 'nostr-react'
-import { getPublicKey } from 'nostr-tools'
 import { useState } from 'react'
 import SaveButton from '../../components/Button/Save'
 import UnstyledButton from '../../components/Button/Unstyled'
@@ -10,9 +9,9 @@ import { hexToBech32 } from '../../utils'
 
 export default function Page() {
   const [_, setValue] = useState('')
-  const { privkey } = useAppContext()
+  const { privkey, pubkey } = useAppContext()
 
-  const { data } = useProfile({ pubkey: privkey ? getPublicKey(privkey as string) : '' })
+  const { data } = useProfile({ pubkey })
 
   const downloadKeys = () => {
     const json = `data:text/json;chatset=utf-8,${encodeURIComponent(
@@ -230,6 +229,8 @@ export default function Page() {
                     <div className="mt-1">
                       <input
                         type="text"
+                        readOnly
+                        disabled
                         spellCheck="false"
                         name="npub"
                         id="npub"

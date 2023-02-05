@@ -12,10 +12,9 @@ import Link from 'next/link'
 interface Props {
   event: Event
   eventIndex: number
-  length?: number
 }
 
-export default function Post({ event, eventIndex, length }: Props) {
+export default function Post({ event, eventIndex }: Props) {
   const mappedEvent = mapEvent(event.content, event.tags)
   const { data: metadata } = useProfile({ pubkey: event.pubkey })
 
@@ -24,8 +23,7 @@ export default function Post({ event, eventIndex, length }: Props) {
       key={event.id}
       className={classNames(
         `border-0 border-t hover:cursor-pointer dark:border-gray-700 px-4 py-6 dark:hover:bg-codgray hover:bg-guyabano`,
-        eventIndex === 0 && 'border-none',
-        eventIndex === 0 && length === 1 && 'border-b'
+        eventIndex === 0 && 'border-none'
       )}
     >
       <Link href={`/${event.pubkey}/status/${event.id}`}>

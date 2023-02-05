@@ -2,10 +2,8 @@
 
 import HomeFeed from '../components/Feed/HomeFeed'
 import SendPost from '../components/Feed/SendPost'
-import { useAppContext } from '../context/AppContext'
 
 export default function Page() {
-  const { privkey } = useAppContext()
   const filter = {
     since: 0,
     kinds: [1],
@@ -14,7 +12,7 @@ export default function Page() {
 
   return (
     <>
-      {!!privkey && <SendPost />}
+      <SendPost />
       <HomeFeed filter={filter} />
     </>
   )

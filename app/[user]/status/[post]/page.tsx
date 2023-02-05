@@ -14,5 +14,5 @@ export default function Page({ params }) {
     kinds: [1]
   }
 
-  return <ReplyFeed filter={filter} isProfilePage user={params.user} post={params.post} />
+  return <ReplyFeed filter={filter} user={params.user} post={params.post} />
 }

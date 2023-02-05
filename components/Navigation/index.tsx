@@ -1,6 +1,8 @@
+import classNames from 'classnames'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   FiCoffee,
   FiHash,
@@ -17,7 +19,8 @@ import { useAppContext } from '../../context/AppContext'
 
 export default function Navigation() {
   const { resolvedTheme, setTheme } = useTheme()
-  const { privkey, setPrivkey, pubkey } = useAppContext()
+  const { setPrivkey, pubkey, setPubkey, provider, setProvider } = useAppContext()
+  const { push } = useRouter()
 
   return (
     <header className="sticky top-0 inset-x-0 dark:bg-dark bg-cultured h-screen flex flex-col">
@@ -75,7 +78,7 @@ export default function Navigation() {
           </div>
           <div className="flex justify-center mt-3">
             <Link
-              href="/explore"
+              href="/"
               className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
             >
               <FiHash />
@@ -83,7 +86,7 @@ export default function Navigation() {
           </div>
           <div className="flex justify-center mt-3">
             <Link
-              href="/messages"
+              href="/"
               className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
             >
               <FiMail />
@@ -98,35 +101,42 @@ export default function Navigation() {
               {resolvedTheme === 'light' ? <FiSun /> : <FiMoon />}
             </button>
           </div>
-          {!!privkey && (
-            <div className="flex justify-center">
-              <Link
-                href={`/${pubkey}`}
-                className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
-              >
-                <FiUser />
-              </Link>
-            </div>
-          )}
-          {!!privkey && (
-            <div className="flex justify-center">
-              <Link
-                href="/settings"
-                className="text-richblack hover:text-richblack dark:text-cultured  dark:hover:text-cultured text-2xl"
-              >
-                <FiSettings />
-              </Link>
-            </div>
-          )}
+          <div className="flex justify-center">
+            <button
+              type="button"
+              disabled={!provider || !pubkey}
+              onClick={() => push(`/${pubkey}`)}
+              className={classNames(
+                'text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl',
+                (!provider || !pubkey) && 'opacity-50 cursor-not-allowed'
+              )}
+            >
+              <FiUser />
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              disabled={!provider || !pubkey}
+              onClick={() => push('/settings')}
+              className={classNames(
+                'text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl',
+                (!provider || !pubkey) && 'opacity-50 cursor-not-allowed'
+              )}
+            >
+              <FiSettings />
+            </button>
+          </div>
           <div className="flex justify-center mt-3">
             <Link
-              href="/support"
+              href="https://wallet.getmash.com/e/michael?action=donate"
+              target="_blank"
               className="text-richblack hover:text-richblack dark:text-cultured dark:hover:text-cultured text-2xl"
             >
               <FiCoffee />
             </Link>
           </div>
-          {!privkey ? (
+          {!provider ? (
             <div className="flex justify-center">
               <Link
                 href="/auth"
@@ -136,12 +146,16 @@ export default function Navigation() {
               </Link>
             </div>
           ) : (
-            <div className="absolute mx-auto left-0 right-0 bottom-7 text-center">
+            <div className="flex justify-center">
               <Link href="/auth">
                 <button
                   type="button"
                   className="text-richblack hover:text-richblack dark:text-cultured  dark:hover:text-cultured text-2xl"
-                  onClick={() => setPrivkey('')}
+                  onClick={() => {
+                    setPrivkey('')
+                    setPubkey('')
+                    setProvider('')
+                  }}
                 >
                   <FiLogOut />
                 </button>

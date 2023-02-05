@@ -1,16 +1,64 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 'use client'
 
-import Link from 'next/link'
 import { getPublicKey } from 'nostr-tools'
 import { useState } from 'react'
 import InfoButton from '../../components/Button/Info'
 import UnstyledButton from '../../components/Button/Unstyled'
 import { useAppContext } from '../../context/AppContext'
 import { bech32ToHex } from '../../utils'
+import { requestProvider } from 'webln'
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
   const [value, setValue] = useState('')
-  const { setPrivkey, setPubkey } = useAppContext()
+  const { setPrivkey, setPubkey, setProvider } = useAppContext()
+  const { push } = useRouter()
+
+  const connectLocal = () => {
+    setPrivkey(bech32ToHex(value) as string)
+    setPubkey(getPublicKey(bech32ToHex(value) as string))
+    setProvider('local')
+
+    push('/')
+  }
+
+  const connectAlby = async () => {
+    try {
+      const webln = await requestProvider()
+      const info = await webln.getInfo()
+
+      if (Object.keys(info?.node || {}).length > 0) {
+        setProvider(info.node.alias)
+        setPubkey(info.node.pubkey || '')
+      } else {
+        setProvider('web')
+        setPubkey('')
+      }
+
+      push('/')
+    } catch {
+      setProvider('')
+      setPubkey('')
+    }
+  }
+
+  const connectNos2x = async () => {
+    try {
+      // @ts-ignore
+      const pubkey = await window?.nostr?.getPublicKey()
+
+      if (pubkey) {
+        setProvider('nos2x')
+        setPubkey(pubkey)
+        push('/')
+      }
+    } catch {
+      setProvider('')
+      setPubkey('')
+    }
+  }
 
   return (
     <div className="flow-root border-0 border-l border-r dark:border-gray-700 min-h-screen">
@@ -46,23 +94,40 @@ export default function Page() {
                 </div>
                 <div className="mt-3">
                   <div className="flex justify-end">
-                    <Link href="/">
-                      <InfoButton
-                        text="Sign in"
-                        onClick={() => {
-                          setPrivkey(bech32ToHex(value) as string)
-                          setPubkey(getPublicKey(bech32ToHex(value) as string))
-                        }}
-                        disabled={!value.startsWith('nsec') || !bech32ToHex(value)}
-                      />
-                    </Link>
+                    <InfoButton
+                      text="Sign in"
+                      onClick={connectLocal}
+                      disabled={!value.startsWith('nsec') || !bech32ToHex(value)}
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="my-3">
-              <hr className="dark:border-gray-700 dark:opacity-30 my-6" />
-              <UnstyledButton text="Create account" onClick={console.log} />
+            <div className="border-t dark:border-t-gray-700 my-5">
+              <div className="mb-6">
+                <h3 className="mt-9 text-lg font-medium leading-6 text-richblack dark:text-cultured">
+                  Provider Sign In
+                </h3>
+                <p className="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                  Use a web provider to sign in.
+                </p>
+              </div>
+              <div className="my-3">
+                <UnstyledButton
+                  text="🐝&nbsp;Connect Alby"
+                  onClick={connectAlby}
+                  // @ts-ignore
+                  disabled
+                />
+              </div>
+              <div className="my-3">
+                <UnstyledButton
+                  text="🔐&nbsp;Connect Nos2x"
+                  onClick={connectNos2x}
+                  // @ts-ignore
+                  disabled={!window?.nostr}
+                />
+              </div>
             </div>
           </div>
         </div>
