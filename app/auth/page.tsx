@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 'use client'
 
 import { getPublicKey } from 'nostr-tools'
@@ -46,6 +44,7 @@ export default function Page() {
 
   const connectNos2x = async () => {
     try {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const pubkey = await window?.nostr?.getPublicKey()
 
@@ -116,6 +115,7 @@ export default function Page() {
                 <UnstyledButton
                   text="🐝&nbsp;Connect Alby"
                   onClick={connectAlby}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   disabled
                 />
@@ -124,6 +124,7 @@ export default function Page() {
                 <UnstyledButton
                   text="🔐&nbsp;Connect Nos2x"
                   onClick={connectNos2x}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   disabled={!window?.nostr}
                 />
