@@ -7,9 +7,11 @@ import UnstyledButton from '../../components/Button/Unstyled'
 import { useAppContext } from '../../context/AppContext'
 import { bech32ToHex } from '../../utils'
 import { requestProvider } from 'webln'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function Page() {
+  useSearchParams()
+
   const [value, setValue] = useState('')
   const { setPrivkey, setPubkey, setProvider } = useAppContext()
   const { push } = useRouter()

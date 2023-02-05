@@ -1,6 +1,7 @@
 'use client'
 
 import dayjs from 'dayjs'
+import { useSearchParams } from 'next/navigation'
 import { useNostr, useProfile } from 'nostr-react'
 import { Event, getEventHash, getPublicKey, signEvent } from 'nostr-tools'
 import { useState } from 'react'
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export default function SendReply({ post }: Props) {
+  useSearchParams()
+
   const [value, setValue] = useState('')
   const { privkey, pubkey, provider } = useAppContext()
   const { data: metadata } = useProfile({ pubkey })

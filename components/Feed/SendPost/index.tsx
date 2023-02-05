@@ -1,6 +1,7 @@
 'use client'
 
 import dayjs from 'dayjs'
+import { useSearchParams } from 'next/navigation'
 import { useNostr } from 'nostr-react'
 import { Event, getEventHash, getPublicKey, signEvent } from 'nostr-tools'
 import { useState } from 'react'
@@ -8,6 +9,8 @@ import { useAppContext } from '../../../context/AppContext'
 import InfoButton from '../../Button/Info'
 
 export default function SendPost() {
+  useSearchParams()
+
   const [value, setValue] = useState('')
   const { privkey, provider, pubkey } = useAppContext()
   const { publish } = useNostr()
