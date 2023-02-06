@@ -1,19 +1,23 @@
 'use client'
 
-import HomeFeed from '../components/Feed/HomeFeed'
+import dayjs from 'dayjs'
+import { useRef } from 'react'
+import DefaultFeed from '../components/Feed/DefaultFeed'
 import SendPost from '../components/Feed/SendPost'
 
 export default function Page() {
+  const now = useRef(new Date())
+
   const filter = {
-    since: 0,
+    since: dayjs(now.current).unix() - 60,
     kinds: [1],
-    limit: 1
+    limit: 20
   }
 
   return (
     <>
       <SendPost />
-      <HomeFeed filter={filter} />
+      <DefaultFeed filter={filter} />
     </>
   )
 }

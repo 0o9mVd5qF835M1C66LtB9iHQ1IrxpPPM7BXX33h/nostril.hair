@@ -1,30 +1,34 @@
 'use client'
 
-import classNames from 'classnames'
 import { Event, Filter } from 'nostr-tools'
 import { useEffect, useState } from 'react'
 import { useNostrEvents } from 'nostr-react'
-import useInfiniteScroll from 'react-infinite-scroll-hook'
-import { useDebouncedCallback } from 'use-debounce'
 import dedupe from 'dedupe'
 import Post from '../../Post'
+import useVirtual from 'react-cool-virtual'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
+import { useDebouncedCallback } from 'use-debounce'
 
 const DEFAULT_LIMIT = 5
 
 interface Props {
   filter: Filter
-  isProfilePage?: boolean
+  isInfiniteScroll?: boolean
 }
 
-export default function HomeFeed({ filter, isProfilePage = false }: Props) {
+export default function DefaultFeed({ filter, isInfiniteScroll = false }: Props) {
   const [events, setEvents] = useState<Event[]>([])
+  const { events: incomingEvents, isLoading: loading } = useNostrEvents({ filter })
   const debouncedSetEvents = useDebouncedCallback((value) => setEvents(value), 1000, {
     leading: true
   })
-  const { events: incomingEvents, isLoading: loading } = useNostrEvents({ filter })
 
   const hiddenPostsCount = incomingEvents.length - events.length
   const postsText = hiddenPostsCount === 1 ? 'post' : 'posts'
+
+  const { outerRef, innerRef, items } = useVirtual<HTMLDivElement, HTMLUListElement>({
+    itemCount: events.length
+  })
 
   useEffect(() => {
     if (events.length < DEFAULT_LIMIT) {
@@ -32,7 +36,8 @@ export default function HomeFeed({ filter, isProfilePage = false }: Props) {
         incomingEvents.slice(0, DEFAULT_LIMIT).sort((a, b) => b.created_at - a.created_at)
       )
     }
-  }, [debouncedSetEvents, events.length, incomingEvents])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incomingEvents.length])
 
   const [sentryRef] = useInfiniteScroll({
     loading,
@@ -49,48 +54,43 @@ export default function HomeFeed({ filter, isProfilePage = false }: Props) {
         )
       }
     },
-    rootMargin: '0px 0px 50px 0px'
+    rootMargin: '0px 0px 400px 0px'
   })
 
   return (
-    <div className="flow-root border-l border-r dark:border-gray-700 min-h-screen">
-      <ul className="scroll-smooth bg-opacity-100">
-        {!isProfilePage &&
+    <div className="flow-root" ref={outerRef}>
+      <ul ref={innerRef}>
+        {!isInfiniteScroll &&
           events.length >= DEFAULT_LIMIT &&
-          events.length < incomingEvents.length - DEFAULT_LIMIT && (
-            <li className="border-0 border-b dark:border-gray-700 py-6 bg-opacity-100">
+          events.length < incomingEvents.length && (
+            <li className="py-6 border-0 border-t dark:border-gray-700">
               <div className="flex justify-center">
                 <button
                   type="button"
                   className="text-[15px] text-blue-700 dark:text-carolinablue hover:opacity-90"
-                  onClick={() =>
-                    setEvents(
-                      dedupe(
-                        incomingEvents.sort((a, b) => b.created_at - a.created_at),
-                        (event) => event.id
-                      )
-                    )
-                  }
+                  onClick={() => setEvents(dedupe(incomingEvents, (event) => event.id))}
                 >
                   {`Show ${hiddenPostsCount} ${postsText}`}
                 </button>
               </div>
             </li>
           )}
-        {events
-          .sort((a, b) => b.created_at - a.created_at)
-          .map((event: Event, eventIndex: number) => (
-            <Post key={event.id} event={event} eventIndex={eventIndex} />
-          ))}
-        <div
-          ref={sentryRef}
-          className={classNames(
-            'flex justify-center items-center border-t dark:border-t-gray-700 py-8',
-            events.length === 0 && 'border-none'
-          )}
+        {items.map(({ index, size, measureRef }) => (
+          <Post
+            key={events[index].id}
+            event={events[index]}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            style={{ height: `${size}px` }}
+            ref={measureRef}
+          />
+        ))}
+        <li
+          ref={isInfiniteScroll ? sentryRef : null}
+          className="flex justify-center items-center border-t dark:border-t-gray-700 py-8"
         >
           <div className="h-3 w-3 rounded-full animate-pulse dark:bg-carolinablue bg-tallships" />
-        </div>
+        </li>
       </ul>
     </div>
   )

@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { useProfile } from 'nostr-react'
 import { Event } from 'nostr-tools'
 import { mapEvent } from '../../utils'
@@ -11,20 +10,16 @@ import Link from 'next/link'
 
 interface Props {
   event: Event
-  eventIndex: number
 }
 
-export default function Post({ event, eventIndex }: Props) {
+export default function Post({ event }: Props) {
   const mappedEvent = mapEvent(event.content, event.tags)
   const { data: metadata } = useProfile({ pubkey: event.pubkey })
 
   return (
     <li
       key={event.id}
-      className={classNames(
-        `border-0 border-t hover:cursor-pointer dark:border-gray-700 px-4 py-6 dark:hover:bg-codgray hover:bg-guyabano`,
-        eventIndex === 0 && 'border-none'
-      )}
+      className="border-0 border-t hover:cursor-pointer dark:border-gray-700 px-4 py-6 dark:hover:bg-codgray hover:bg-guyabano"
     >
       <Link href={`/${event.pubkey}/status/${event.id}`}>
         {mappedEvent.replies.length > 0 && (

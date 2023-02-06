@@ -8,7 +8,9 @@ export default function Layout({ children }: { children: ReactNode }) {
         <div className="col-span-1 -mr-6">
           <Navigation />
         </div>
-        <div className="col-span-11">{children}</div>
+        <div className="col-span-11 h-screen overflow-y-scroll border-l border-r dark:border-gray-700">
+          {children}
+        </div>
       </div>
     </div>
   )

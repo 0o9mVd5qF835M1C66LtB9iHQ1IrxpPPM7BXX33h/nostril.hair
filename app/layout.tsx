@@ -30,7 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.className}>
       <body>
         <AppProvider>
-          <NostrProvider relayUrls={relays?.length > 0 ? relays : relayUrls}>
+          {/* relayUrls={relays?.length > 0 ? relays : relayUrls} */}
+          <NostrProvider relayUrls={relayUrls}>
             <ThemeProvider attribute="class" defaultTheme="system">
               <Layout>{children}</Layout>
             </ThemeProvider>

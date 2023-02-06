@@ -36,8 +36,8 @@ export default function ReplyFeed({ filter, user, post }: Props) {
       <ul className="scroll-smooth bg-opacity-100">
         {incomingEvents
           .sort((a, b) => b.created_at - a.created_at)
-          .map((event: Event, eventIndex: number) => (
-            <Post key={event.id} event={event} eventIndex={eventIndex} />
+          .map((event: Event) => (
+            <Post key={event.id} event={event} />
           ))}
         <div className="border-b dark:border-b-gray-700 px-4">
           <SendReply user={user} post={post} />

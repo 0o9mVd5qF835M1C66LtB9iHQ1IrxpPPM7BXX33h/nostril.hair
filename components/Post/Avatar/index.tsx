@@ -3,6 +3,7 @@
 import { Metadata } from 'nostr-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRef } from 'react'
 
 interface Props {
   pubkey: string
@@ -10,12 +11,17 @@ interface Props {
 }
 
 export default function Avatar({ pubkey, metadata }: Props) {
+  const refContainer = useRef(true)
+
   return (
     <Link href={`/${pubkey}`}>
-      {metadata?.picture ? (
+      {metadata?.picture && refContainer.current ? (
         <Image
           className="flex h-12 w-12 items-center justify-center rounded-full hover:opacity-90"
           src={metadata.picture}
+          onError={() => {
+            refContainer.current = false
+          }}
           alt={metadata.picture}
           height={48}
           width={48}
