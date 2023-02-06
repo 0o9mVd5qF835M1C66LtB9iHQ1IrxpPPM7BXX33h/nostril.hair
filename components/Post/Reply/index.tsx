@@ -25,15 +25,13 @@ export default function Reply({ post, postMetadata, reply, replyingTo }: Props) 
   const mappedEvent = mapEvent({ ...reply })
   const { data: metadata } = useProfile({ pubkey: reply.pubkey })
 
-  console.log(mappedEvent)
-
   return (
     <li
       className={classNames(
         'border-0 border-t hover:cursor-pointer dark:border-gray-700 px-4 py-6 dark:hover:bg-codgray hover:bg-guyabano',
-        // replyingTo.indexOf(reply) > 0 &&
-        //   replyingTo.indexOf(reply) < replyingTo.length &&
-        'border-none'
+        replyingTo.indexOf(reply) > 0 &&
+          replyingTo.indexOf(reply) < replyingTo.length &&
+          'border-none'
       )}
     >
       {post.replies.length > 0 && replyingTo.indexOf(reply) === 0 && (
