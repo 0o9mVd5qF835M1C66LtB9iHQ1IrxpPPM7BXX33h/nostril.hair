@@ -100,7 +100,7 @@ export default function Profile({ pubkey }: Props) {
           <div>
             {data?.website && (
               <Link
-                href={data.website}
+                href={data.website.startsWith('http') ? data.website : `https://${data.website}`}
                 className="self-center pb-1 mt-1 text-blue-700 dark:text-carolinablue hover:opacity-90 flex items-center"
                 target="_blank"
               >
