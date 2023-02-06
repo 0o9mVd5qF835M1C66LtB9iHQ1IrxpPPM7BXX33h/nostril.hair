@@ -79,14 +79,14 @@ export default function SendReply({ post }: Props) {
                 className="rounded-lg block text-richblack dark:text-slate-200 focus:ring-px bg-white border border-gray-200 dark:border-gray-900 focus:ring-carolinablue focus:border-carolinablue dark:focus:ring-tallships dark:focus:border-tallships dark:bg-nero max-w-full h-auto flex-1"
                 placeholder="Post your reply"
               />
-              <div className="">
-                <div className="flex justify-end">
-                  <InfoButton
-                    text="Reply"
-                    onClick={handlePost}
-                    disabled={!provider || !pubkey || value.length === 0 || value.length > 240}
-                  />
-                </div>
+            </div>
+            <div className="mt-3">
+              <div className="flex justify-end">
+                <InfoButton
+                  text="Reply"
+                  onClick={handlePost}
+                  disabled={!provider || !pubkey || value.length === 0 || value.length > 240}
+                />
               </div>
             </div>
           </div>

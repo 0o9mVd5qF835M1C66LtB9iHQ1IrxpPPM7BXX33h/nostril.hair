@@ -10,6 +10,7 @@ export default function Page({ params }) {
   useSearchParams()
 
   const filter = {
+    authors: [params.user],
     ids: [params.post],
     kinds: [1]
   }

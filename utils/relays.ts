@@ -21,7 +21,7 @@ const relays: string[] = [
   // 'wss://relay.kronkltd.net',
   // 'wss://relay.nosphr.com',
   // 'wss://relay.nostr.au',
-  // 'wss://relay.damus.io',
+  'wss://relay.damus.io',
   'wss://nostr.zebedee.cloud',
   'wss://nostr.walletofsatoshi.com'
 ]

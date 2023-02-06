@@ -16,7 +16,7 @@ export default function RepliedLink({ pubkey, metadata }: Props) {
       <div className="flex items-center">
         <FiMessageSquare className="mr-1 font-bold text-gray-700 dark:text-gray-400 text-sm" />
         <span className="hover:underline dark:decoration-gray-400 decoration-gray-700 font-medium text-gray-700 dark:text-gray-400 text-sm">
-          {metadata?.name || shortenID(pubkey)} replied
+          {metadata?.name ? `@${metadata.name}` : shortenID(pubkey)} replied
         </span>
       </div>
     </Link>

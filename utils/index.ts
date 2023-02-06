@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import dayjs from 'dayjs'
-import { nip19 } from 'nostr-tools'
+import { Event, nip19 } from 'nostr-tools'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { sanitize } from 'dompurify'
 
@@ -66,18 +66,20 @@ export const hexToBech32 = (key: string, prefix: string) => {
   }
 }
 
-export const mapEvent = (content: string, tags: string[][]) => {
+export const mapEvent = (event: Event) => {
+  const { content, tags } = event
+
   const events = {
     profiles: [],
     replies: [],
+    pubkeys: [],
     mentions: []
   }
 
-  // eslint-disable-next-line no-param-reassign
-  content = String(content).trim()
-  if (content === '') {
+  if (String(content).trim() === '') {
     return {
-      content,
+      ...event,
+      content: '',
       replies: [],
       mentions: tags.filter(([key, value]) => key === 'e' && value).map(([_, value]) => value)
     }
@@ -121,9 +123,19 @@ export const mapEvent = (content: string, tags: string[][]) => {
       }
     })
 
+  tags
+    .filter(([key, value]) => key === 'p' && value)
+    .forEach(([_, value]) => {
+      if (!events.pubkeys.includes(value)) {
+        events.pubkeys.push(value)
+      }
+    })
+
   return {
+    ...event,
     content: sanitize(content),
     replies: events.replies,
+    pubkeys: events.pubkeys,
     mentions: events.mentions
   }
 }

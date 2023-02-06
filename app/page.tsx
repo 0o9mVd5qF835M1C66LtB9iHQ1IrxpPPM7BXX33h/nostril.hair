@@ -9,7 +9,7 @@ export default function Page() {
   const now = useRef(new Date())
 
   const filter = {
-    since: dayjs(now.current).unix() - 60,
+    since: dayjs(now.current).unix() - 60 * 5, // last 5 minutes
     kinds: [1],
     limit: 20
   }
